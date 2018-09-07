@@ -1,0 +1,12 @@
+.custom-nav{
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    /* background: #fff !important;
+    color: #333 !important; */
+   
+}
+.custom-nav .active {
+    /* border: 1px solid lightblue; */
+    background: lightseagreen;
+    border-radius: 6px;
+    color: #fff;
+}

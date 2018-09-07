@@ -1,0 +1,9 @@
+.login-form {
+    
+    border:   1px solid lightseagreen;
+    border-radius: 6px;
+    box-shadow: 0 0 4px lightseagreen;
+}
+.card-body {
+    padding-top: 80px !important;
+}

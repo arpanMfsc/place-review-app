@@ -1,0 +1,27 @@
+.profile-navbar {
+    border-bottom: 1px solid lightseagreen;
+}
+.profile-navbar .active{
+    border:1px solid crimson;
+    border-radius: 4px;
+}
+.search-container {
+    position: relative;
+}
+.search-results-container {
+    background: #D5DBDB;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    bottom: -70px;
+}
+.search-results-container:before{
+  content: " ";
+  width: 0; 
+  height: 0; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: absolute;
+  top: -10px; left: 9px;
+  border-bottom: 10px solid #D5DBDB;
+}
