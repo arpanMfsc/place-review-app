@@ -2,6 +2,8 @@ package com.reviewapp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,8 @@ public class UserAPI {
 	}
 	
 	@GetMapping("/getAllUsers")
-	public List<User> getAllUsers() {
+	public List<User> getAllUsers(HttpServletRequest r) {
+		System.out.println(r.getSession());
 		return userRepo.findAll();
 	}
 	
@@ -79,9 +82,9 @@ public class UserAPI {
 		return userRepo.findByEmailPasswordOrPhonePassword(credentials.userId, credentials.password);
 	}
 	
-	@GetMapping("/addPlace")
-	public Place addPlace() {
-		Place p=new Place();
+	@PostMapping("/addPlace")
+	public Place addPlace(@RequestBody Place p,HttpServletRequest r) {
+		
 		p.setAddedBy(userRepo.findByEmail("arpan.pathak47@gmail.com"));
 		return placeRepo.save(p);
 	}

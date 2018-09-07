@@ -16,11 +16,14 @@ import org.hibernate.annotations.Type;
 @Table(name="places")
 public class Place {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long 	placeId;
 	private String 	name;
 	private String	description;
-	private String	location;
+	private String	address;
+	private String 	city;
+	private String 	state;
+	private String	postalCode;
 	private String  pictures;
 	
 	@OneToOne
@@ -52,12 +55,12 @@ public class Place {
 		this.description = description;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getAddress() {
+		return address;
 	}
 
 	public void setLocation(String location) {
-		this.location = location;
+		this.address = location;
 	}
 
 	public String getPictures() {
@@ -83,5 +86,30 @@ public class Place {
 	public void setAddedOn(Date addedOn) {
 		this.addedOn = addedOn;
 	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+	
 	
 }

@@ -10,6 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { AddPlaceComponent } from './add-place/add-place.component';
+import { PlacesComponent } from './places/places.component';
+import { MyPlacesComponent } from './my-places/my-places.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +22,11 @@ import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.componen
     NavbarComponent,
     LoginComponent,
     ProfileComponent,
-    ProfileNavbarComponent
+    ProfileNavbarComponent,
+    TimelineComponent,
+    AddPlaceComponent,
+    PlacesComponent,
+    MyPlacesComponent
   ],
   imports: [
     BrowserModule,
@@ -43,10 +51,28 @@ import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.componen
             component: LoginComponent
           }
         ]
-    	},
+     },
      {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        children: [
+          {
+            path: 'places',
+            component: PlacesComponent
+          },
+          {
+            path: 'timeline',
+            component: TimelineComponent
+          },
+          {
+            path: 'addPlace',
+            component: AddPlaceComponent
+          },
+          {
+            path: 'myPlaces',
+            component: MyPlacesComponent
+          }
+        ]
       },
       
     ])

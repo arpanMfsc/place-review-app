@@ -1,8 +1,9 @@
 .profile-navbar {
     border-bottom: 1px solid lightseagreen;
+    background: #fff;
 }
 .profile-navbar .active{
-    border:1px solid crimson;
+    border:1px solid lightseagreen;
     border-radius: 4px;
 }
 .search-container {
