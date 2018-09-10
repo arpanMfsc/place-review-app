@@ -10,11 +10,12 @@
     position: relative;
 }
 .search-results-container {
-    background: #D5DBDB;
+    background: #fff;
     border-radius: 6px;
     padding: 10px;
     position: absolute;
     bottom: -70px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.6);
 }
 .search-results-container:before{
   content: " ";
@@ -24,5 +25,5 @@
   border-right: 10px solid transparent;
   position: absolute;
   top: -10px; left: 9px;
-  border-bottom: 10px solid #D5DBDB;
+  border-bottom: 10px solid #fff;
 }

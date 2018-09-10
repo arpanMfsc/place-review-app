@@ -1,5 +1,8 @@
 <profile-navbar></profile-navbar>
-<div style="margin-top: 60px" *ngIf="authenticated">
+<div style="margin-top: 60px" *ngIf="authenticated;else error">
   <router-outlet ></router-outlet>
 </div>
+<ng-template #error>
+  <div style="color: #fff">USER NOT AUTHENTICATED</div>
+</ng-template>
 

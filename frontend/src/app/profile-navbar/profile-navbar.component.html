@@ -4,35 +4,46 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="#">placeReview</a>
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <!-- <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link" routerLink='/home' >Home </a>
         </li> -->
         <li class="nav-item">
           <a class="nav-link" routerLink='/profile/recent' [routerLinkActive]="['active']">
-            recent
+            <i class="fa fa-globe" aria-hidden="true"></i> recent
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink='/profile/places' [routerLinkActive]="['active']">places</a>
+            <a class="nav-link" routerLink='/profile/places' [routerLinkActive]="['active']">
+              <i class="fa fa-map-marker" aria-hidden="true"></i> places
+            </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink='/profile/myPlaces' [routerLinkActive]="['active']">my places</a>
+          <a class="nav-link" routerLink='/profile/myPlaces' [routerLinkActive]="['active']">
+            <i class="fa fa-bookmark" aria-hidden="true"></i> my places
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink='/profile/addPlace' [routerLinkActive]="['active']">add</a>
+          <a class="nav-link" routerLink='/profile/addPlace' [routerLinkActive]="['active']">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> add
+          </a>
         </li>
-        <li class="nav-item right">
-          
+        <li style="float:right">
+          <button type="button" class="btn btn-outline-danger">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>  logout
+          </button>
+        </li>
+        <li>
+        <!-- search box -->
+          <form class="form-inline m-2 ml-2 my-2 my-lg-0 search-container">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            <div class="search-results-container">
+              search results
+            </div>
+          </form>
         </li>
       </ul>
-      <!-- search box -->
-      <form class="form-inline my-2 my-lg-0 search-container">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-        <div class="search-results-container">
-          search results
-        </div>
-      </form>
+     
     </div>
   </nav>
