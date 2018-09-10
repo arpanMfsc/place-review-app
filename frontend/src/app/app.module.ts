@@ -14,6 +14,8 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { AddPlaceComponent } from './add-place/add-place.component';
 import { PlacesComponent } from './places/places.component';
 import { MyPlacesComponent } from './my-places/my-places.component';
+import {AppService} from './app-service.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import { MyPlacesComponent } from './my-places/my-places.component';
     TimelineComponent,
     AddPlaceComponent,
     PlacesComponent,
-    MyPlacesComponent
+    MyPlacesComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -42,10 +45,7 @@ import { MyPlacesComponent } from './my-places/my-places.component';
     		path: 'home',
         component: HomeComponent,
         children: [
-          {
-            path: 'registration',
-            component: RegistrationComponent
-          }, 
+          { path: 'registration',component: RegistrationComponent}, 
           {
             path: 'login',
             component: LoginComponent
@@ -74,10 +74,14 @@ import { MyPlacesComponent } from './my-places/my-places.component';
           }
         ]
       },
+      {
+        path: '**',
+        component: PageNotFoundComponent
+      }
       
     ])
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

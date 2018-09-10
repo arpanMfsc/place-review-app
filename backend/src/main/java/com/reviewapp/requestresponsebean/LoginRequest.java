@@ -1,4 +1,4 @@
-package com.reviewapp.helpers;
+package com.reviewapp.requestresponsebean;
 
 /***
  * A bean class for incoming login requet..

@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.reviewapp.helpers.LoginRequest;
 import com.reviewapp.model.Place;
 import com.reviewapp.model.User;
 import com.reviewapp.repositories.PlaceRepository;
 import com.reviewapp.repositories.UserRepository;
+import com.reviewapp.requestresponsebean.LoginRequest;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")

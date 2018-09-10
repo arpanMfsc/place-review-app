@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AppService} from '../app-service.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor() { }
+  authenticated:any=false;
+  constructor(private app: AppService,private router: Router) { }
 
   ngOnInit() {
+    this.authenticated=this.app.isAuthenticated();
+    if(!this.authenticated)
+      this.router.navigate(['home/login']);
   }
 
 }

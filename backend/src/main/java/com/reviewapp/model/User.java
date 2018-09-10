@@ -19,7 +19,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
-	private @Id @GeneratedValue(strategy=GenerationType.IDENTITY) Long userId;
+	private @Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	Long userId;
+	
 	@Column(nullable=false)
 	private String userName;
 	

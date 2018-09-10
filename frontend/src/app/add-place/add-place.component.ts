@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {AppService} from '../app-service.service';
 
 @Component({
   selector: 'add-place',
@@ -11,7 +12,7 @@ export class AddPlaceComponent implements OnInit {
   public files:any[];
   url:any="";
   public urls:any[]=[];
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private app: AppService) { }
 
   ngOnInit() {
   }
@@ -32,9 +33,13 @@ export class AddPlaceComponent implements OnInit {
   
   onUpload() {
     const formData = new FormData();
+    formData.append("name",this.model.name);
+    formData.append("description",this.model.description);
+    formData.append("address",this.model.address);
     for (const file of this.files) {
         formData.append("file", file, file.name);
     }
+    console.log(formData);
     this.http.post('http://localhost:8080/file/upload', formData).subscribe(x => console.log(x));
   }
 }
