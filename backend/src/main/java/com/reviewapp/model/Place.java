@@ -15,16 +15,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name="places")
 public class Place {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long 			placeId;
+	
 	private String 			name;
+	
+	
 	private String			description;
+	
 	private String			address;
+	
 	private String 			city;
+	
 	private String 			state;
+	
 	private String			postalCode;
 	
+	@OneToMany(
+	        cascade = CascadeType.ALL, 
+	        orphanRemoval = true
+	    )
+	private List<Comment>	comments;
 	@OneToMany(
 	        cascade = CascadeType.ALL, 
 	        orphanRemoval = true
@@ -115,6 +128,15 @@ public class Place {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
 	
 	
 }

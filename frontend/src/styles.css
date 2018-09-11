@@ -65,5 +65,26 @@
   border-bottom: 10px solid #E0F2F1;
 }
 body {
-    background: #212F3D   ;
+    /* background: #212F3D   ; */
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track { 
+    background: #fff; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: lightseagreen; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background:  #34495E;
 }

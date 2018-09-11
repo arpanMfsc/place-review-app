@@ -17,7 +17,7 @@
 					<div class="form-group">
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-									<div class="input-group-text bg-dark"><i class="fa fa-phone-square text-white"></i></div>
+									<div class="input-group-text"><i class="fa fa-phone-square text-secondary"></i></div>
 							</div>
 							<input type="text" class="form-control" name="userId" 
 								placeholder="Enter your mobile no or email here" required 
@@ -34,7 +34,7 @@
 							
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-									<div class="input-group-text bg-dark"><i class="fa fa-lock text-white"></i></div>
+									<div class="input-group-text"><i class="fa fa-lock text-secondary"></i></div>
 							</div>
 							<input type="password" class="form-control" placeholder="Please enter password" 
 								name="password" required [(ngModel)]="model.password"
@@ -47,7 +47,9 @@
 							</span>
 						</div>
 					</div>
-			
+					<div class="alert alert-warning" *ngIf="error">
+						{{error}}
+					</div>
 
 					<div class="text-center">
 						<button type="submit" class="btn btn-block btn-outline-dark">

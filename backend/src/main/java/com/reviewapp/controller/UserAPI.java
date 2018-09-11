@@ -1,9 +1,7 @@
 package com.reviewapp.controller;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,26 +10,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.reviewapp.model.Place;
 import com.reviewapp.model.User;
 import com.reviewapp.repositories.PlaceRepository;
 import com.reviewapp.repositories.UserRepository;
 import com.reviewapp.requestresponsebean.LoginRequest;
+import com.reviewapp.service.*;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
+
 public class UserAPI {
 
+	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private AuthService auth;
 	
 	@Autowired
 	private PlaceRepository placeRepo;
 	/**
 	 * A rest API route for creating user...
 	 * @param u
-	 * @return user object if succesfully created
+	 * @return user object if successfully created
 	 */
 	@PostMapping("/createUser")
 	public User returnCreatedUser(@RequestBody User u) {
@@ -49,6 +53,7 @@ public class UserAPI {
 		userRepo.deleteAll();
 		return "deleted all users";
 	}
+	
 	/**
 	 * A rest api route that returns List of users...
 	 * @param name
@@ -77,16 +82,24 @@ public class UserAPI {
 	}
 	
 	@PostMapping("/login")
-	public User login(@RequestBody LoginRequest credentials) 
+	public User login(HttpServletRequest request,@RequestBody LoginRequest credentials) 
 	{
-		return userRepo.findByEmailPasswordOrPhonePassword(credentials.userId, credentials.password);
+
+		return auth.authenticate(request,credentials.userId,credentials.password);
 	}
 	
 	@PostMapping("/addPlace")
 	public Place addPlace(@RequestBody Place p,HttpServletRequest r) {
 		
-		p.setAddedBy(userRepo.findByEmail("arpan.pathak47@gmail.com"));
+		p.setAddedBy(userRepo.findByEmail("arpan.pathak4"
+				+ "7@gmail.com"));
 		return placeRepo.save(p);
+	}
+	
+	@GetMapping("/is-authenticated")
+	public User isAuthenticated(HttpServletRequest request) {
+		System.out.println(request.getSession().getAttribute("user"));
+		return (User) request.getSession(false).getAttribute("user");
 	}
 
 }

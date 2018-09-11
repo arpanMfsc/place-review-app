@@ -24,13 +24,15 @@ public class FileAPI {
 
 	@Autowired
 	private UserRepository users;
+	
 	@Autowired
 	private PlaceRepository places;
+	
 	@PostMapping(value="/upload",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String upload(@RequestParam("file") MultipartFile[] 	file,
-						@RequestParam("name")  String 			name,
-						@RequestParam("description") String 	description,
-						@RequestParam("address") String 		address) throws IOException {
+	public String upload(@RequestParam(value="file",required=false) MultipartFile[] 	file,
+						@RequestParam("name")  String 				name,
+						@RequestParam("description") String 		description,
+						@RequestParam("address") String 			address) throws IOException {
 		
 		
 		Place place=new Place();

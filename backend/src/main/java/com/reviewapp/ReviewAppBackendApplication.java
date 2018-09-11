@@ -1,3 +1,9 @@
+/***
+ * This is the starting point of the spring boot application...
+ * @author mindfire
+ *
+ */
+
 package com.reviewapp;
 
 import org.springframework.boot.SpringApplication;

@@ -40,6 +40,7 @@ export class AddPlaceComponent implements OnInit {
         formData.append("file", file, file.name);
     }
     console.log(formData);
-    this.http.post('http://localhost:8080/file/upload', formData).subscribe(x => console.log(x));
+    const url=this.app.base_url+"file/upload";
+    this.http.post(url, formData).subscribe((x:any) => console.log(x));
   }
 }
