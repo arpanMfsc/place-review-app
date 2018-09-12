@@ -25,5 +25,6 @@ public class PlaceAPI {
 	public Comment addComment(Comment comment) {
 		Place place = places.findById( comment.getPlaceId()).get();
 		
+		
 	}
 }
