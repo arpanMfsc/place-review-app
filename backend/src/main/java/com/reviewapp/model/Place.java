@@ -19,29 +19,20 @@ public class Place {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long 			placeId;
-	
 	private String 			name;
-	
-	
 	private String			description;
-	
 	private String			address;
 	
-	private String 			city;
-	
-	private String 			state;
-	
-	private String			postalCode;
-	
 	@OneToMany(
 	        cascade = CascadeType.ALL, 
 	        orphanRemoval = true
 	    )
-	private List<Comment>	comments;
-	@OneToMany(
-	        cascade = CascadeType.ALL, 
-	        orphanRemoval = true
-	    )
+//	private List<Comment>	comments = new ArrayList<>();
+//	
+//	@OneToMany(
+//	        cascade = CascadeType.ALL, 
+//	        orphanRemoval = true
+//	    )
 	private List<Picture>  	pictures = new ArrayList<>();
 	
 	@OneToOne
@@ -105,38 +96,12 @@ public class Place {
 		this.addedOn = addedOn;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-	
-	
+//	public List<Comment> getComments() {
+//		return comments;
+//	}
+//
+//	public void setComments(List<Comment> comments) {
+//		this.comments = comments;
+//	}
 	
 }

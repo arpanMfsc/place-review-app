@@ -17,6 +17,7 @@ export class AppService {
     return this.authenticated;
   }
   logout() {
+    console.log("logout button is pressed...");
     this.authenticated = false;
   }
 }

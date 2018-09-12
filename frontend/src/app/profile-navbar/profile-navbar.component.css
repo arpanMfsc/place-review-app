@@ -1,5 +1,6 @@
 .profile-navbar {
-    border-bottom: 1px solid lightseagreen;
+    /* border-bottom: 1px solid lightseagreen; */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     background: #fff;
 }
 .profile-navbar .active{

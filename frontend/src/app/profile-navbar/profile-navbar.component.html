@@ -42,24 +42,21 @@
                     <i class="fa fa-cog" aria-hidden="true"></i> settings
                   </li>
                   <li>
-                      
                   
                   </li>
                   <li>
                       
                   </li>
-                  <li>
-                  
+                  <li class="dropdown-item">
+                    <button type="button" class="btn btn-outline-danger" (click)="this.app.logout()">
+                      <i class="fa fa-sign-out" aria-hidden="true"></i>  logout
+                    </button>
+                  </li>
                   <li class="divider"></li>
                   
               </ul>
             </div>
           </li>
-        <li>
-          <button type="button" class="btn btn-outline-danger">
-          <i class="fa fa-sign-out" aria-hidden="true"></i>  logout
-          </button>
-        </li>
         <li>
         <!-- search box -->
           <form class="form-inline m-2 ml-2 my-2 my-lg-0 search-container">

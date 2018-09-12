@@ -1,8 +1,14 @@
-<profile-navbar></profile-navbar>
-<div style="margin-top: 60px" *ngIf="authenticated;else error">
+
+<div style="margin-top: 60px" *ngIf="this.app.isAuthenticated();else error">
+  <profile-navbar></profile-navbar>
   <router-outlet ></router-outlet>
 </div>
 <ng-template #error>
-  <div style="color: #fff">USER NOT AUTHENTICATED</div>
+  <h1 class="text-secondary" style="text-align: center; margin-top: calc(50vh - 157px)">
+    <i class="fa fa-user-secret" aria-hidden="true"></i> USER NOT AUTHENTICATED
+    <br />
+    <a type="button" class="btn btn-info" routerLink="/home/login">LOGIN</a>
+  </h1>
+
 </ng-template>
 

@@ -16,6 +16,7 @@ import { PlacesComponent } from './places/places.component';
 import { MyPlacesComponent } from './my-places/my-places.component';
 import {AppService} from './app-service.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RecentComponent } from './recent/recent.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AddPlaceComponent,
     PlacesComponent,
     MyPlacesComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RecentComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         path: 'profile',
         component: ProfileComponent,
         children: [
+          {
+            path: '',
+            redirectTo: 'recent',
+            pathMatch: 'full'
+          },
+          {
+            path: 'recent',
+            component: RecentComponent
+          },
           {
             path: 'places',
             component: PlacesComponent

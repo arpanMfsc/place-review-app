@@ -13,6 +13,7 @@ import com.reviewapp.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/comment")
+
 public class CommentAPI {
 	
 	@Autowired

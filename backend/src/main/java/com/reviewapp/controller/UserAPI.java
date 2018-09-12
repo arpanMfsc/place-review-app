@@ -18,12 +18,11 @@ import com.reviewapp.requestresponsebean.LoginRequest;
 import com.reviewapp.service.*;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") // allow all the origins for API calls
 @RequestMapping("/api")
 
 public class UserAPI {
 
-	
 	@Autowired
 	private UserRepository userRepo;
 	
@@ -32,6 +31,7 @@ public class UserAPI {
 	
 	@Autowired
 	private PlaceRepository placeRepo;
+	
 	/**
 	 * A rest API route for creating user...
 	 * @param u
@@ -42,6 +42,11 @@ public class UserAPI {
 		return userRepo.save(u);
 	}
 	
+	/**
+	 * A rest API route for getting list of users
+	 * @param r
+	 * @return List of User 
+	 */
 	@GetMapping("/getAllUsers")
 	public List<User> getAllUsers(HttpServletRequest r) {
 		System.out.println(r.getSession());
