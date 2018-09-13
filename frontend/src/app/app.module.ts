@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ProfileNavbarComponent } from './profile-navbar/profile-navbar.component';
@@ -17,6 +17,8 @@ import { MyPlacesComponent } from './my-places/my-places.component';
 import {AppService} from './app-service.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RecentComponent } from './recent/recent.component';
+import { CommentComponent } from './comment/comment.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { RecentComponent } from './recent/recent.component';
     PlacesComponent,
     MyPlacesComponent,
     PageNotFoundComponent,
-    RecentComponent
+    RecentComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

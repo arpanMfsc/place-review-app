@@ -114,3 +114,17 @@
   </div>
   </div>
   </div>
+
+  <!-- modal for displaying messaged -->
+<button type="button" data-toggle="modal" data-target="#myModal" [hidden]="true" 
+  id="showMessage" >Open Modal</button>
+
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>success {{success}} </p>
+      </div>
+    </div>
+  </div>
+</div>

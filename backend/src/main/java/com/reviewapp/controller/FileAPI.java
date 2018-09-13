@@ -1,3 +1,9 @@
+/***
+ * All the file uploading and handling APIs
+ * @author arpanpathak
+ *
+ */
+
 package com.reviewapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +18,7 @@ import java.io.*;
 import com.reviewapp.model.*;
 import com.reviewapp.repositories.PlaceRepository;
 import com.reviewapp.repositories.UserRepository;
-/***
- * All the file uploading and handling APIs
- * @author mindfire
- *
- */
+import com.reviewapp.service.*;
 @RestController
 @RequestMapping("/file")
 @CrossOrigin(origins = "*")
@@ -28,35 +30,45 @@ public class FileAPI {
 	@Autowired
 	private PlaceRepository places;
 	
+	@Autowired
+	private FileService fileService;
+	
+	/**
+	 * This API route will create new place and handle file uploads
+	 * @param file
+	 * @param addedBy
+	 * @param name
+	 * @param description
+	 * @param address
+	 * @return instance of Place if successfully added otherwise null
+	 * @throws IOException
+	 */
 	@PostMapping(value="/upload",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String upload(@RequestParam(value="file",required=false) MultipartFile[] 	file,
+	public Place upload(@RequestParam(value="file",required=false) MultipartFile[] 	file,
+						@RequestParam("addedBy")  Long 				addedBy,
 						@RequestParam("name")  String 				name,
 						@RequestParam("description") String 		description,
 						@RequestParam("address") String 			address) throws IOException {
 		
 		
 		Place place=new Place();
+	
 		place.setName(name);
 		place.setDescription(description);
 		place.setAddress(address);
-		place.setAddedBy(users.findByEmail("arpan.pathak47@gmail.com"));
-		for( int i=0;i<file.length;i++) {
-
-			// generating unique file name based on time stamp....
-			String generatedFileName = new java.util.Date().getTime()+".png";
+		
+		// this code is vulnerable to attacks, it will be fixed after adding spring security.....
+		place.setAddedBy( addedBy );
+		
+		for( String fileName: fileService.uploadFiles(file) ) {
+ 
 			
-			// Give the complete path where files needs to be uploaded.....
-			File f=new File("E:/uploads/"+generatedFileName);
-			f.createNewFile();
-			FileOutputStream fout=new FileOutputStream(f);
-			fout.write(file[i].getBytes());
-			fout.close();
-			Picture p=new Picture(generatedFileName,"this is a simple caption");
+			Picture p=new Picture(fileName,"this is a simple caption");
 			place.getPictures().add(p);
-			System.out.println( file[i].getOriginalFilename() );
+			System.out.println( fileName);
 		}
 		places.save(place);
-		return "working";
+		return place;
 	}
 	
 }

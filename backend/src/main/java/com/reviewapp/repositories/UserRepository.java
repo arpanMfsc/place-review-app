@@ -32,9 +32,13 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	 */
 	User findByPhone(String phone);
 
-	// find by email-password or phone-password
+	/**
+	 * This method will return user based on email/password and phone
+	 * @param String emailOrPhone
+	 * @param String password
+	 * @return instance of User from the query
+	 */
 	 @Query(value = "SELECT * FROM USERS WHERE (email = ?1 or phone=?1) and password=?2", nativeQuery = true)
 	User findByEmailPasswordOrPhonePassword(String emailOrPhone,String password);
-	
-	User findByUserNameAndPassword(String userName,String password);
+	 
 }

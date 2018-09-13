@@ -47,7 +47,9 @@ public class User {
 	private String profession;
 	
 	private boolean activated=false;
+	
 	public User() { }
+	
 	// Copy constructor...
 	public User(User u) {
 		this.userName = u.getUserName();

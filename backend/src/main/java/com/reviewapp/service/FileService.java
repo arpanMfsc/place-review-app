@@ -4,21 +4,25 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
 public class FileService {
 
 	// BASE_LOCATION of of the file uploading directory
-	final static String BASE_LOCATION = "E:/uploads/";
+	final String BASE_LOCATION = "E:/uploads/";
 
 	/**
 	 * This method will return the file extension
 	 * @param MultipartFile file
 	 * @return String which is extension of the file
 	 */
-	public static String getExtension(MultipartFile file) {
+	public String getExtension(MultipartFile file) {
+		
 		// splitting file name using "." delimit
-		String[] tokens = file.getOriginalFilename().split(".");
+		String[] tokens = file.getOriginalFilename().split("\\.");
 		
 		// returning file extension...
 		return "." + tokens[tokens.length - 1];
@@ -30,7 +34,7 @@ public class FileService {
 	 * @return list of name of generated files after uploading
 	 * @throws IOException
 	 */
-	public static List<String> uploadFiles(MultipartFile[] files) throws IOException {
+	public List<String> uploadFiles(MultipartFile[] files) throws IOException {
 		// creating empty array list file names....
 		List<String> fileNames = new ArrayList<>();
 		
@@ -61,7 +65,7 @@ public class FileService {
 	 * @return a String which is name of the uploaded file in server 
 	 * @throws IOException
 	 */
-	public static String uploadFile(MultipartFile file) throws IOException {
+	public String uploadFile(MultipartFile file) throws IOException {
 		String fileName = new java.util.Date().getTime() + getExtension(file);
 
 		File f = new File(BASE_LOCATION + fileName);

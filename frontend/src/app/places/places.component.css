@@ -1,0 +1,8 @@
+.place {
+    border: 1px solid lightseagreen;
+    margin-top: 10px !important;
+}
+.place .card-header {
+    background: darkslateblue;
+    color: #fff;
+}

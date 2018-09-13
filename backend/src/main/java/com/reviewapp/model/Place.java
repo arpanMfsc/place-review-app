@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,18 +26,20 @@ public class Place {
 	
 	@OneToMany(
 	        cascade = CascadeType.ALL, 
-	        orphanRemoval = true
+	        orphanRemoval = true,
+	        fetch=FetchType.LAZY
 	    )
-//	private List<Comment>	comments = new ArrayList<>();
-//	
-//	@OneToMany(
-//	        cascade = CascadeType.ALL, 
-//	        orphanRemoval = true
-//	    )
+
 	private List<Picture>  	pictures = new ArrayList<>();
 	
-	@OneToOne
-	private User addedBy;
+	@OneToMany(
+	        cascade = CascadeType.ALL, 
+	        orphanRemoval = true,
+	        fetch=FetchType.LAZY
+	    )
+	private List<Comment>	comments = new ArrayList<>();
+	
+	private Long addedBy;
 	
 	private Date addedOn=new Date();
 
@@ -80,11 +83,11 @@ public class Place {
 		this.pictures = pictures;
 	}
 
-	public User getAddedBy() {
+	public Long getAddedBy() {
 		return addedBy;
 	}
 
-	public void setAddedBy(User addedBy) {
+	public void setAddedBy(Long addedBy) {
 		this.addedBy = addedBy;
 	}
 
@@ -96,12 +99,12 @@ public class Place {
 		this.addedOn = addedOn;
 	}
 
-//	public List<Comment> getComments() {
-//		return comments;
-//	}
-//
-//	public void setComments(List<Comment> comments) {
-//		this.comments = comments;
-//	}
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 	
 }

@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.reviewapp.model.Place;
 import com.reviewapp.model.User;
-import com.reviewapp.repositories.PlaceRepository;
 import com.reviewapp.repositories.UserRepository;
 import com.reviewapp.requestresponsebean.LoginRequest;
 import com.reviewapp.service.*;
@@ -29,13 +27,10 @@ public class UserAPI {
 	@Autowired
 	private AuthService auth;
 	
-	@Autowired
-	private PlaceRepository placeRepo;
-	
 	/**
 	 * A rest API route for creating user...
-	 * @param u
-	 * @return user object if successfully created
+	 * @param User u
+	 * @return User object if successfully created
 	 */
 	@PostMapping("/createUser")
 	public User returnCreatedUser(@RequestBody User u) {
@@ -47,13 +42,17 @@ public class UserAPI {
 	 * @param r
 	 * @return List of User 
 	 */
-	@GetMapping("/getAllUsers")
+	@GetMapping("/get-all-users")
 	public List<User> getAllUsers(HttpServletRequest r) {
 		System.out.println(r.getSession());
 		return userRepo.findAll();
 	}
 	
-	@GetMapping("/deleteAll")
+	/**
+	 * This API route will delete all the users
+	 * @return String
+	 */
+	@GetMapping("/delete-all")
 	public String deleteAll() {
 		userRepo.deleteAll();
 		return "deleted all users";
@@ -71,7 +70,12 @@ public class UserAPI {
 	
 	}
 	
-	@PostMapping("/findByEmail")
+	/**
+	 * This method will check if the given email already being used or not
+	 * @param email
+	 * @return true if email email address is available to use otherwise false
+	 */
+	@PostMapping("/find-by-email")
 	public boolean checkEmailAvailable(@RequestBody String email) 
 	{	
 		User u=userRepo.findByEmail(email);
@@ -79,28 +83,35 @@ public class UserAPI {
 		return u==null;
 	}
 	
-	@PostMapping("/findByPhone")
+	/**
+	 * This API route will check if the phone no is already being used or not
+	 * @param String phone
+	 * @return true if the given phone no is available otherwise false
+	 */
+	@PostMapping("/find-by-phone")
 	public boolean checkPhoneAvailable(@RequestBody String phone) 
 	{
 		System.out.println(userRepo.findByPhone(phone));
 		return userRepo.findByPhone(phone)==null;
 	}
 	
+	/**
+	 * This API route will authenticate the user based on given credentials
+	 * @param HttpServlet request
+	 * @param LoginRequest credentials
+	 * @return an instance of User if successfully logged in otherwise null
+	 */
 	@PostMapping("/login")
 	public User login(HttpServletRequest request,@RequestBody LoginRequest credentials) 
 	{
-
 		return auth.authenticate(request,credentials.userId,credentials.password);
 	}
 	
-	@PostMapping("/addPlace")
-	public Place addPlace(@RequestBody Place p,HttpServletRequest r) {
-		
-		p.setAddedBy(userRepo.findByEmail("arpan.pathak4"
-				+ "7@gmail.com"));
-		return placeRepo.save(p);
-	}
-	
+	/**
+	 * This API route is used to check if the user is authenticated or not
+	 * @param HttpServlet request
+	 * @return an instance of User if authenticated otherwise false
+	 */
 	@GetMapping("/is-authenticated")
 	public User isAuthenticated(HttpServletRequest request) {
 		System.out.println(request.getSession().getAttribute("user"));
