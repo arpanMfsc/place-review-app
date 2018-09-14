@@ -18,6 +18,7 @@ import {AppService} from './app-service.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RecentComponent } from './recent/recent.component';
 import { CommentComponent } from './comment/comment.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CommentComponent } from './comment/comment.component';
     MyPlacesComponent,
     PageNotFoundComponent,
     RecentComponent,
-    CommentComponent
+    CommentComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,

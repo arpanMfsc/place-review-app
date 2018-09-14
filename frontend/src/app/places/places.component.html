@@ -1,5 +1,5 @@
 <div class="container-fluid places" >
-    <div class="card m-3 place" *ngFor="let place of places" style=" border: none; box-shadow: 1px 0 10px rgba(0,0,0,0.2)">
+    <div class="card m-3 place" *ngFor="let place of places" >
       <div class="card-header">
         <i class="fa fa-map-pin" aria-hidden="true"></i> {{place.name}}
         
@@ -12,16 +12,23 @@
             <span class="chip"><strong>added on : </strong>{{place.addedOn}}</span>
             <span class="chip"><strong>added by : </strong> {{place.addedBy.userName}} </span>
         </div>
-        <h5 class="text-secondary">Address</h5>
-        <hr />
 
         <div class="alert alert-primary">  
           {{place.description }}
           <!-- <img *ngFor="let picture of place.pictures" src={{ getImage(picture.fileName) }}> -->
         </div>
-        <h5 class="text-secondary">Address</h5>
-        <div class="alert alert-info">
-          {{place.address}}
+        <div class="card">
+          <div class="card-header">Pictures</div>
+          <div class="card-body">
+            <img *ngFor="let pic of place.pictures" [src]="getImage(pic.fileName)" class="img"/>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Address</div>
+          <div class="card-body">
+            {{place.address}}
+          </div>
         </div>
         <div class="alert">
            
@@ -33,49 +40,61 @@
                   </div>
                   <textarea
                     class="form-control" placeholder="type your comment here" name="comment{{index}}"
-                    #comment
+                    #comment required
                   ></textarea>
-                  Give your rating
-                  <div class="rating" style="position: relative; ">
-                     
-                    <label>
-                        <input type="radio" name="stars" value="1" #rating/>
-                        <span class="icon">★</span>
-                      </label>
-                      <label>
-                        <input type="radio" name="stars" value="2" #rating />
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                      </label>
-                      <label>
-                        <input type="radio" name="stars" value="3" #rating />
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>   
-                      </label>
-                      <label>
-                        <input type="radio" name="stars" value="4" #rating />
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                      </label>
-                      <label>
-                        <input type="radio" name="stars" value="5" #rating />
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                        <span class="icon">★</span>
-                      </label>
-                    </div>
-                  <button type="button" class="btn btn-danger" (click)="addComment(place.placeId,comment.value,rating.value)">
+                  
+                  <button type="button" class="btn btn-danger" 
+                    (click)="addComment(place.placeId,comment.value,rating.value)"
+                    [disabled]="comment.invalid"
+                  >
                     <i class="fa fa-location-arrow" aria-hidden="true"></i>
                   </button>
               </div>
           </div>
-          <div class="comments">
-            comment
+          Give your rating
+          <div class="rating" style="position: relative; ">
+              
+            <label>
+                <input type="radio" name="stars" value="1" #rating/>
+                <span class="icon">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="2" #rating />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="3" #rating />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>   
+              </label>
+              <label>
+                <input type="radio" name="stars" value="4" #rating />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="5" #rating />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+              </label>
+            </div>
+          <div class="comments card">
+            <div class="card comment" *ngFor="let comment of place.comments"> 
+              <div class="card-header">
+                  <small>by: {{comment.addedBy.userName}}</small>
+                  <div *ngFor="let i of getArray(comment.rating) ">{{i}}</div>
+              </div>
+              <div class="card-body">
+                <pre>{{ comment.comment }}</pre>
+              </div>
+            </div>
           </div>
         </div>
       </div>

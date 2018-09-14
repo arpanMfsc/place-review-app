@@ -7,3 +7,11 @@
 .card-body {
     padding-top: 80px !important;
 }
+.card {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+.card .header{
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}

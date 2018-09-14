@@ -1,6 +1,8 @@
 package com.reviewapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +13,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="comments")
-
 public class Comment {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	
+	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private  Long commentId;
 	
 	private Long placeId;
@@ -26,8 +28,8 @@ public class Comment {
 	private User addedBy;
 	
 	@OneToMany
-	private List<Picture> pictures;
-
+	private List<Picture> pictures= new ArrayList<>();
+	
 	public Long getCommentId() {
 		return commentId;
 	}
@@ -66,6 +68,20 @@ public class Comment {
 
 	public void setPictures(List<Picture> pictures) {
 		this.pictures = pictures;
+	}
+
+	public User getAddedBy() {
+		return addedBy;
+	}
+
+	public void setAddedBy(User addedBy) {
+		this.addedBy = addedBy;
+	}
+	
+	@Override
+	public String toString() {
+		return "Comment [commentId=" + commentId + ", placeId=" + placeId + ", rating=" + rating + ", comment="
+				+ comment + ", addedBy=" + addedBy + ", pictures=" + pictures + "]";
 	}
 	
 }

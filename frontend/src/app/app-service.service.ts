@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +9,10 @@ export class AppService {
   
   // specify base URL of API server here.. it can be used by other components if injected....
   public base_url="http://localhost:8080/";
-  constructor() { }
+  public resource_base_location = "http://localhost:80/";
+  constructor(private http: HttpClient) { 
+    
+  }
   authenticate() {
     this.authenticated=true;
   }
@@ -17,7 +20,9 @@ export class AppService {
     return this.authenticated;
   }
   logout() {
-    console.log("logout button is pressed...");
     this.authenticated = false;
+  }
+  getResourceUrl(fileName) {
+    return this.resource_base_location + fileName;
   }
 }

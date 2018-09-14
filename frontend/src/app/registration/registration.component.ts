@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {  Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
+import {AppService} from '../app-service.service';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -15,7 +15,7 @@ export class RegistrationComponent implements OnInit {
     emailAvailable:any=true;
     phoneAvailable:any=true;
     
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,private app: AppService) { }
     ngOnInit() {
 
     }
@@ -25,7 +25,7 @@ export class RegistrationComponent implements OnInit {
     }
     checkEmailId() {
       //this method will check if the email id entered is already being used or not...
-      this.http.post('http://localhost:8080/api/findByEmail',this.model.email)
+      this.http.post(this.app.base_url+'api/find-by-email',this.model.email)
           .subscribe((flag)=>{  
             this.emailAvailable=flag;
             console.log(this.emailAvailable);
@@ -33,14 +33,14 @@ export class RegistrationComponent implements OnInit {
     }
     checkPhoneNo() {
       // this method will check if the phobe no entered is already being used or not...
-      this.http.post('http://localhost:8080/api/findByPhone',this.model.phone)
+      this.http.post(this.app.base_url+'api/find-by-phone',this.model.phone)
       .subscribe((flag)=>this.phoneAvailable=flag);
     }
 
     //this method is handling for ajax requet at form submission...
     onSubmit() {
       // this.loading = true;
-      this.http.post("http://localhost:8080/api/createUser",{
+      this.http.post(this.app.base_url+'/api/createUser',{
         userName: this.model.name,
         email: this.model.email,
         phone: this.model.phone,

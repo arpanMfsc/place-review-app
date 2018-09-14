@@ -1,8 +1,16 @@
 .place {
-    border: 1px solid lightseagreen;
     margin-top: 10px !important;
+    border: none; box-shadow: 1px 0 10px rgba(0,0,0,0.4);
+
 }
-.place .card-header {
+.place>.card-header {
     background: darkslateblue;
     color: #fff;
+}
+
+.img {
+    box-shadow: 1px 0 10px rgba(0,0,0,0.6);
+    height: 200px;
+    width: 200px;
+    margin: 5px;
 }

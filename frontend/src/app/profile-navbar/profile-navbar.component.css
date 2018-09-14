@@ -11,7 +11,8 @@
     position: relative;
 }
 .search-results-container {
-    background: #fff;
+    width: 300px;
+    background: #34495E ;
     border-radius: 6px;
     padding: 10px;
     position: absolute;
@@ -26,5 +27,5 @@
   border-right: 10px solid transparent;
   position: absolute;
   top: -10px; left: 9px;
-  border-bottom: 10px solid #fff;
+  border-bottom: 10px solid #34495E  ;
 }

@@ -6,6 +6,7 @@ package com.reviewapp.requestresponsebean;
  *
  */
 public class LoginRequest {
+	
 	public String userId;
 	public String password;
 	

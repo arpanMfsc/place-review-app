@@ -70,18 +70,19 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track { 
-    background: #fff; 
+    background: lightgrey;
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: lightseagreen; 
-    border-radius: 10px;
+    background: #5DADE2; 
+    border-radius: 20px;
+    box-shadow: 1px 0 3px black inset;
 }
 
 /* Handle on hover */
@@ -112,8 +113,8 @@ body {
     display: inline-block;
     position: relative;
     height: 50px;
-    line-height: 20px;
-    font-size: 20px;
+    line-height: 40px;
+    font-size: 40px;
   }
   
   .rating label {
@@ -173,3 +174,26 @@ body {
     color: #000;
     text-shadow: 0 0 5px #09f;
   }
+  
+  .comment {
+    position: relative;
+    border-radius: 7px;
+    transition: 0.6s ease-in-out;
+    margin: 20px;
+    box-shadow: 1px 0 12px rgba(0,0,0,0.5);
+  }
+  .comment .card-header {
+    background: #3498DB !important;
+    color: #fff !important;
+  }
+.comment:before {
+  content: " ";
+  width: 0; 
+  height: 0; 
+  border-top: 1px solid transparent;
+  border-bottom: 25px solid transparent;
+  position: absolute;
+  top: 0; left: -23px;
+  border-right: 25px solid #3498DB;
+}
+

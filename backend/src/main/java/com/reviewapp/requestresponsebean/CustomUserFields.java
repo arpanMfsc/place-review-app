@@ -31,6 +31,4 @@ public class CustomUserFields {
 		return dp;
 	}
 	
-	
-	
 }

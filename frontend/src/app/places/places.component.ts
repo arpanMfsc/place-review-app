@@ -18,11 +18,24 @@ export class PlacesComponent implements OnInit {
   }
   addComment(placeId,comment,rating) {
     console.log(placeId,comment,rating);
+    this.http.post(this.app.base_url+'place/add-comment',
+                    { "placeId": placeId,
+                     "comment": comment,
+                     "addedBy": this.app.user,
+                     "rating": rating
+                    } 
+                  ).subscribe((comment: any)=>console.log(comment));
   }
   sanitize(url:string){
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
   getImage(fileName) {
-    console.log(fileName);
+    return this.app.getResourceUrl(fileName);
+  }
+  getArray(num) {
+    let arr=[];
+    for(let i=1;i<=num;i++)
+      arr.push(i);
+    return arr;
   }
 }

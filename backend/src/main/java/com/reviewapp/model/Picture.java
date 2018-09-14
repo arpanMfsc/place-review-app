@@ -1,3 +1,7 @@
+/***
+ * Picture Model Class
+ * @author arpanpathak
+ */
 package com.reviewapp.model;
 
 import javax.persistence.Entity;

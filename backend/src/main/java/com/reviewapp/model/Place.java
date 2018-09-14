@@ -1,17 +1,25 @@
+/***
+ * Place Model Class
+ * @author arpanpathak
+ */
 package com.reviewapp.model;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name="places")
@@ -29,20 +37,25 @@ public class Place {
 	        orphanRemoval = true,
 	        fetch=FetchType.LAZY
 	    )
-
+	@JoinColumn
 	private List<Picture>  	pictures = new ArrayList<>();
 	
 	@OneToMany(
 	        cascade = CascadeType.ALL, 
-	        orphanRemoval = true,
-	        fetch=FetchType.LAZY
+	        
+	        fetch=FetchType.LAZY,
+	        targetEntity=Comment.class
 	    )
-	private List<Comment>	comments = new ArrayList<>();
+	@JoinColumn
+	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@OnDelete(action=OnDeleteAction.CASCADE)
+	private List<Comment>	comments ;
 	
 	private Long addedBy;
 	
 	private Date addedOn=new Date();
 
+	/** GETTERS AND SETTERS **/
 	public Long getPlaceId() {
 		return placeId;
 	}
