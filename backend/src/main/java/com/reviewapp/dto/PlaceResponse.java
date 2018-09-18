@@ -2,7 +2,7 @@
  * Custom PlaceResponse Class which includes calculated rating
  * @author arpanpathak
  */
-package com.reviewapp.requestresponsebean;
+package com.reviewapp.dto;
 
 import java.util.Date;
 import java.util.List;

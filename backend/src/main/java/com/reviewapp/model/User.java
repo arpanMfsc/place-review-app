@@ -15,45 +15,44 @@ import javax.persistence.TemporalType;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
-	private @Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) 
 	Long userId;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String userName;
-	
-	
-	@Column(nullable=false,unique=true)
+
+	@Column(nullable = false, unique = true)
 	private String email;
-	
-	@Column(nullable=false,unique=true)
+
+	@Column(nullable = false, unique = true)
 	private String phone;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String password;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
-	private Date addedOn=new Date();
-	
-	@Column(nullable=false)
+	private Date addedOn = new Date();
+
+	@Column(nullable = false)
 	private String type;
-	
+
 	private String dp;
-	
+
 	private String profession;
-	
-	private boolean activated=false;
-	
-	public User() { }
-	
+
+	private boolean activated = false;
+
+	public User() {
+	}
+
 	// Copy constructor...
 	public User(User u) {
 		this.userName = u.getUserName();
@@ -94,7 +93,8 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	@JsonIgnore
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public String getPassword() {
 		return password;
 	}
@@ -145,6 +145,5 @@ public class User {
 				+ ", password=" + password + ", addedOn=" + addedOn + ", type=" + type + ", dp=" + dp + ", profession="
 				+ profession + ", activated=" + activated + "]";
 	}
-	
 
 }

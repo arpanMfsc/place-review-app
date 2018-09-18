@@ -27,7 +27,7 @@ public class AuthService {
 	 * @return true if user is authenticated otherwise false
 	 */
 	public boolean isAuthenticated(HttpServletRequest request) {
-		return request.getAttribute("user") != null;
+		return request.getSession().getAttribute("user") != null;
 	}
 
 	/**
@@ -47,6 +47,7 @@ public class AuthService {
 		if (user != null) {
 			request.getSession(true).setAttribute("user", user);
 		}
+		System.out.println(user);
 		return user;
 	}
 

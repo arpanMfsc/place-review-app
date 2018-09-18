@@ -35,7 +35,10 @@
         <li >
             <div class="dropdown mr-2">
               <button class="dropdown-toggle btn btn-outline-primary" data-toggle="dropdown" role="button" aria-expanded="false"> 
-                  <i class="fa fa-user" aria-hidden="true"></i> <span class="caret"></span>
+                  <!-- <i class="fa fa-user" aria-hidden="true"></i>  -->
+                  <img [src]="this.app.getResourceUrl(this.app.user.dp)" 
+                      class="img-rounded" style="width: 25px; height: 25px;" />
+                  <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-cart " role="menu">
                   <li class="dropdown-item">
@@ -46,7 +49,10 @@
                   </span>
                   </li>
                   <li class="dropdown-item">
-                    <i class="fa fa-cog" aria-hidden="true"></i> settings
+                    <div class="divider"></div>
+                    <input type="file" name="file" (change)="this.app.onDpFileChanged($event)" accept="image/*"/>
+                    <div class="divider"></div>
+                    <button type="button" class="btn btn-outline-dark" (click)="this.app.onDpChange()">change profile pic</button>
                   </li>
                   <li>
                       
@@ -67,7 +73,7 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
             <!-- <div class="search-results-container">
-              
+            
             </div> -->
           </form>
         </li>

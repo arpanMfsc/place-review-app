@@ -5,7 +5,7 @@
  * @author arpanpathak
  *
  */
-package com.reviewapp.requestresponsebean;
+package com.reviewapp.dto;
 
 public class CustomUserFields {
 	

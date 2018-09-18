@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.reviewapp.dto.PlaceResponse;
 import com.reviewapp.model.Comment;
 import com.reviewapp.model.Place;
 import com.reviewapp.model.User;
 import com.reviewapp.repositories.CommentRepository;
 import com.reviewapp.repositories.PlaceRepository;
 import com.reviewapp.repositories.UserRepository;
-import com.reviewapp.requestresponsebean.PlaceResponse;
 
 @RestController
 @RequestMapping("/place")
@@ -50,8 +51,9 @@ public class PlaceAPI {
 
 			User u = users.findById(place.getAddedBy()).get();
 			System.out.println(place.getComments());
-			System.out.println(places.getAverageRating(place.getPlaceId()));
-			response.add(new PlaceResponse(place, u, 2.0));
+			Double avg = places.getAverageRating(place.getPlaceId());
+			int avgRating = (int) Math.ceil(avg==null? 0 : avg);
+			response.add(new PlaceResponse(place, u, avgRating));
 		}
 		return response;
 	}
@@ -69,7 +71,7 @@ public class PlaceAPI {
 		c.setPlaceId(comment.getPlaceId());
 		c.setAddedBy(users.findById(comment.getAddedBy().getUserId()).get());
 		c.setComment(comment.getComment());
-		c.setRating(c.getRating());
+		c.setRating(comment.getRating());
 		System.out.println(c);
 		Place p = places.findById(c.getPlaceId()).get();
 

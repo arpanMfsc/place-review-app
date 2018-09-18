@@ -20,7 +20,7 @@ public class Comment {
 	
 	private Long placeId;
 	
-	private double rating=1.0d;
+	private double rating;
 	
 	private String comment;
 	

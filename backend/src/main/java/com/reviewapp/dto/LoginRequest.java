@@ -1,4 +1,4 @@
-package com.reviewapp.requestresponsebean;
+package com.reviewapp.dto;
 
 /***
  * A bean class for incoming login requet..

@@ -14,3 +14,8 @@
     width: 200px;
     margin: 5px;
 }
+.comments {
+    background: lightgrey;
+    max-height: 500px !important;
+    overflow-y: scroll !important;
+}

@@ -9,7 +9,7 @@ import {AppService} from '../app-service.service';
 })
 export class AddPlaceComponent implements OnInit {
   model:any={name: "",description: "",address: "",pictures: ""};
-  public files:any[];
+  public files:any[]=[];
   url:any="";
   success:any="";
   error:any="";
