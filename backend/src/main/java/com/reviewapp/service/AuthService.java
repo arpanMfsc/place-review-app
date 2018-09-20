@@ -5,18 +5,19 @@
  */
 package com.reviewapp.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.reviewapp.model.User;
 import com.reviewapp.repositories.UserRepository;
 
 @Service
 public class AuthService {
 
+	private Map<String,User> tokens = new HashMap<>();
+	
 	@Autowired
 	private UserRepository users;
 

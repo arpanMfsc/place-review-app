@@ -105,4 +105,11 @@ public class PlaceAPI {
 		return places.getAverageRating(id);
 	}
 	
+	@GetMapping("/search/{text}")
+	public List<Place> searchPlace(@PathVariable("text") String text) {
+		List<Place> foundPlaces = places.searchPlace(text);
+		System.out.println(text);
+		return foundPlaces;
+	}
+	
 }

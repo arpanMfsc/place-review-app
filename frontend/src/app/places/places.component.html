@@ -1,5 +1,14 @@
 <div class="container-fluid places" >
-  <div class="card m-3 place" *ngFor="let place of places; let i=index" >
+    <div class="form-group m-3 ">
+        <div class="input-group mb-2">
+        
+          <input type="text" class="form-control" name="search-text" [(ngModel)]="searchText" >
+          <button type="button" class="btn btn-default" (click)="search()">
+            <div class="input-group-text"><i class="fa fa-search"></i></div>
+          </button>
+        </div>
+    </div>
+  <div class="card m-3 place" *ngFor="let place of places; let i=index" s>
     <div class="card-header">
       <i class="fa fa-map-pin" aria-hidden="true"></i> {{place.name}} # {{i}}
       <div class="text-right">
@@ -93,9 +102,10 @@
             <div class="card-header">
                 <small>by: {{comment.addedBy.userName}}</small>
                 <span class="given-rating" *ngFor="let i of getArray(comment.rating) ">★</span>
-                <div class="text-right">
+                <div class="text-right" *ngIf="comment.addedBy.userId==app.user.userId">
                   <button type="button" class="btn btn-outline-danger" (click)="deleteComment(comment.commentId,i) ">
                       <i class="fa fa-trash" aria-hidden="true"></i>
+                      {{comment.addedBy.userId}}/{{app.user.userId}}
                   </button>
                 </div>
             </div>

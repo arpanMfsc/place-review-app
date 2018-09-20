@@ -10,6 +10,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class PlacesComponent implements OnInit {
 
   places:any[]=[];
+  searchText: string ;
   constructor(private http:HttpClient,private app: AppService,private sanitizer:DomSanitizer) { }
   tempRating:any ;
   ngOnInit() {
@@ -48,5 +49,14 @@ export class PlacesComponent implements OnInit {
       this.places[index].comments = this.places[index]
                         .comments.filter(comment=>comment.commentId != commentId)
     });
+  }
+  search() {
+    this.http.get(this.app.base_url+'place/search/'+this.searchText)
+        .subscribe((result:any)=>{this.places=result;} );
+  }
+  callSearch(event) {
+    if(event.keyCode == 13) {
+     this.search();
+    }
   }
 }
