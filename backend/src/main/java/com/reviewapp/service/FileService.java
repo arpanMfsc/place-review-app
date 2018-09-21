@@ -12,7 +12,8 @@ public class FileService {
 
 	// BASE_LOCATION of of the file uploading directory
 	final String BASE_LOCATION = "E:/uploads/";
-
+	// ---- Maxim File Size 100MB ---- 
+	final long MAX_SIZE		   = (long)(1e+8);
 	/**
 	 * This method will return the file extension
 	 * @param MultipartFile file
@@ -64,7 +65,11 @@ public class FileService {
 	 * @return a String which is name of the uploaded file in server 
 	 * @throws IOException
 	 */
-	public String uploadFile(MultipartFile file) throws IOException {
+	public String uploadFile(MultipartFile file) throws Exception {
+		
+		if(file.getSize() > MAX_SIZE)
+			throw new Exception("File Size Exceeded");
+		
 		String fileName = new java.util.Date().getTime() + getExtension(file);
 
 		File f = new File(BASE_LOCATION + fileName);

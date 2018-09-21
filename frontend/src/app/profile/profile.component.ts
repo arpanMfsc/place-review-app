@@ -13,10 +13,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.authenticated=this.app.isAuthenticated();
-    this.http.get(this.app.base_url+"api/is-authenticated").subscribe((user)=>{
-      console.log("working,...",user);
-    });
-    if(!this.authenticated)
+    if(!this.app.isAuthenticated())
       this.router.navigate(['home/login']);
   }
 

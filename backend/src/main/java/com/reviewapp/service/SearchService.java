@@ -1,5 +1,8 @@
 package com.reviewapp.service;
 
-public class SearchService {
+import org.springframework.stereotype.Service;
 
+@Service
+public class SearchService {
+	
 }

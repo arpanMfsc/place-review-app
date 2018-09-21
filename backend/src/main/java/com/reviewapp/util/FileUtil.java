@@ -11,8 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUtil {
 
 	// BASE_LOCATION of of the file uploading directory
+	// THIS_SHOULDN'T-BE-HARDCODED
 	final String BASE_LOCATION = "E:/uploads/";
-
+	// ---- Maxim File Size 100MB ---- 
+	final long MAX_SIZE		   = (long)(1e+8);
+	
 	/**
 	 * This method will return the file extension
 	 * @param MultipartFile file

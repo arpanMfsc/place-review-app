@@ -1,8 +1,9 @@
-<div class="container-fluid places" >
+<div class="container places" >
     <div class="form-group m-3 ">
         <div class="input-group mb-2">
         
-          <input type="text" class="form-control" name="search-text" [(ngModel)]="searchText" >
+          <input type="text" class="form-control" name="search-text" [(ngModel)]="searchText" 
+          (keydown)="callSearch($event)">
           <button type="button" class="btn btn-default" (click)="search()">
             <div class="input-group-text"><i class="fa fa-search"></i></div>
           </button>
@@ -14,21 +15,18 @@
       <div class="text-right">
         <span class="given-rating" *ngFor="let i of getArray(place.rating) ">★</span>
       </div>
+      <div class="panel panel-default text-right">
+        <strong class="text-secondary" *ngIf="place.addedBy.userId==app.user.userId"> 
+         added by you
+        </strong>
+        <small class="chip"><strong>added on : </strong>{{place.addedOn}}</small>
+        <small class="chip"><strong>added by : </strong> {{place.addedBy.userName}} </small>
+        <small class="chip"><strong>rating : </strong> {{place.rating}} </small>
+      </div>
     </div>
     <div class="card-body">
-      <div class="panel panel-default">
-          <strong *ngIf="place.addedBy==app.user.userId" class="chip" style='color: cyan'> 
-            {{ place.addedBy|json}} 
-          </strong>
-          <small class="chip"><strong>added on : </strong>{{place.addedOn}}</small>
-          <small class="chip"><strong>added by : </strong> {{place.addedBy.userName}} </small>
-          <small class="chip"><strong>rating : </strong> {{place.rating}} </small>
-      </div>
+    
 
-      <div class="alert alert-primary">  
-        {{place.description }}
-        <!-- <img *ngFor="let picture of place.pictures" src={{ getImage(picture.fileName) }}> -->
-      </div>
       <div class="card">
         <div class="card-header">Pictures</div>
         <div class="card-body" style="overflow-y: scroll; overflow-x: hidden;">

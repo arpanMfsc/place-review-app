@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import {AppService} from '../app-service.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
@@ -14,12 +14,14 @@ export class LoginComponent implements OnInit {
   constructor(private http: HttpClient,private app: AppService,private router: Router) { }
 
   ngOnInit() {
+    if(this.app.isAuthenticated())
+      this.router.navigate(["profile"]);
   }
   login() {
-    this.http.post("http://localhost:8080/api/login",this.model)
-        .subscribe((user)=>{
-          if(user){
-            this.app.user=user;
+    this.http.post("http://localhost:8080/api/login",this.model,{observe: 'response'})
+        .subscribe((res: HttpResponse<any>)=>{
+          if(res.body && res.body.userId){
+            this.app.user=res.body;
             this.auth();
           }
           else{

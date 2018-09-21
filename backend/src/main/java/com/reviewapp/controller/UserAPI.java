@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.reviewapp.dto.CustomUserFields;
 import com.reviewapp.dto.LoginRequest;
 import com.reviewapp.model.Place;
 import com.reviewapp.model.User;
@@ -27,6 +29,7 @@ import com.reviewapp.repositories.PlaceRepository;
 import com.reviewapp.repositories.UserRepository;
 import com.reviewapp.service.AuthService;
 import com.reviewapp.service.FileService;
+import com.reviewapp.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*") // allow all the origins for API calls
@@ -34,15 +37,16 @@ import com.reviewapp.service.FileService;
 
 public class UserAPI {
 
-	@Autowired
-	private UserRepository userRepo;
+	@Autowired private UserRepository userRepo;
 
-	@Autowired
-	private AuthService auth;
+	@Autowired private AuthService auth;
 
 	@Autowired PlaceRepository places;
-	@Autowired
-	private FileService fileService;
+	
+	@Autowired private FileService fileService;
+	
+	@Autowired private UserService userService;
+	
 	/**
 	 * A rest API route for creating user...
 	 * 
@@ -50,10 +54,8 @@ public class UserAPI {
 	 * @return User object if successfully created
 	 */
 	@PostMapping("/createUser")
-	public User returnCreatedUser(@RequestBody User u) {
-		if(u.getDp()==null)
-			u.setDp("default.jpg");
-		return userRepo.save(u);
+	public User returnCreatedUser(@RequestBody User user) {
+		return userService.addUser(user);
 	}
 
 	/**
@@ -99,9 +101,7 @@ public class UserAPI {
 	 */
 	@PostMapping("/find-by-email")
 	public boolean checkEmailAvailable(@RequestBody String email) {
-		User u = userRepo.findByEmail(email);
-		System.out.println(u);
-		return u == null;
+		return userService.findByEmail(email)!=null;
 	}
 
 	/**
@@ -112,8 +112,7 @@ public class UserAPI {
 	 */
 	@PostMapping("/find-by-phone")
 	public boolean checkPhoneAvailable(@RequestBody String phone) {
-		System.out.println(userRepo.findByPhone(phone));
-		return userRepo.findByPhone(phone) == null;
+		return userService.findByPhone(phone)!=null;
 	}
 
 	/**
@@ -124,20 +123,23 @@ public class UserAPI {
 	 * @return an instance of User if successfully logged in otherwise null
 	 */
 	@PostMapping("/login")
-	public User login(HttpServletRequest request, @RequestBody LoginRequest credentials) {
+	public CustomUserFields login(HttpServletRequest request,HttpServletResponse response, @RequestBody LoginRequest credentials) {
 		return auth.authenticate(request, credentials.userId, credentials.password);
 	}
 
+	@PostMapping("/logout")
+	public void logout(@RequestParam("token") String token) {
+		auth.logout(token);
+	}
 	/**
 	 * This API route is used to check if the user is authenticated or not
 	 * 
 	 * @param HttpServlet request
 	 * @return an instance of User if authenticated otherwise false
 	 */
-	@GetMapping("/is-authenticated")
-	public User isAuthenticated(HttpServletRequest request) {
-		System.out.println(request.getSession().getAttribute("user"));
-		return (User) request.getSession(false).getAttribute("user");
+	@PostMapping("/is-authenticated")
+	public User isAuthenticated(@RequestParam("token") String token) {
+		return auth.getUser(token);
 	}
 	
 	/***
@@ -149,7 +151,7 @@ public class UserAPI {
 	 */
 	@PostMapping("/change-profile-pic")
 	public User changaeDp(@RequestParam("file") MultipartFile file,
-							@RequestParam("userId") Long userId) throws IOException {
+							@RequestParam("userId") Long userId) throws Exception {
 		
 		User user = userRepo.findById(userId).get();
 		String uploadedFileName = fileService.uploadFile(file);

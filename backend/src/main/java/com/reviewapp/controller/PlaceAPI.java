@@ -108,7 +108,6 @@ public class PlaceAPI {
 	@GetMapping("/search/{text}")
 	public List<Place> searchPlace(@PathVariable("text") String text) {
 		List<Place> foundPlaces = places.searchPlace(text);
-		System.out.println(text);
 		return foundPlaces;
 	}
 	
