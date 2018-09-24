@@ -1,6 +1,8 @@
 package com.reviewapp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,7 +51,7 @@ public class User {
 	private String profession;
 
 	private boolean activated = false;
-
+	
 	public User() {
 	}
 

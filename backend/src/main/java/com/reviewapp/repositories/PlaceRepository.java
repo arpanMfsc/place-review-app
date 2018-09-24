@@ -25,7 +25,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 	 * @param String searchParameter
 	 * @return List<Place> List of matched places
 	 */
-	@Query("select p from Place p where p.name LIKE %?1% ")
+	@Query("select p from Place p where lower(p.name) LIKE %?1% ")
 	List<Place> searchPlace(String searchParameter);
 	
 	/**

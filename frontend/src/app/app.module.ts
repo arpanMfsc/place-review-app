@@ -19,6 +19,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { RecentComponent } from './recent/recent.component';
 import { CommentComponent } from './comment/comment.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { PlaceComponent } from './place/place.component';
+import { HomeSearchComponent } from './home-search/home-search.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     PageNotFoundComponent,
     RecentComponent,
     CommentComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    PlaceComponent,
+    HomeSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +57,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     		path: 'home',
         component: HomeComponent,
         children: [
+          {path: '',component: HomeSearchComponent},
           { path: 'registration',component: RegistrationComponent}, 
           {
             path: 'login',
@@ -95,7 +101,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
         component: PageNotFoundComponent
       }
       
-    ])
+    ]),
+    CKEditorModule 
   ],
   providers: [AppService],
   bootstrap: [AppComponent]

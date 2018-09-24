@@ -5,13 +5,18 @@
 package com.reviewapp.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +27,7 @@ import com.reviewapp.model.User;
 import com.reviewapp.repositories.CommentRepository;
 import com.reviewapp.repositories.PlaceRepository;
 import com.reviewapp.repositories.UserRepository;
+import com.reviewapp.service.PlaceService;
 
 @RestController
 @RequestMapping("/place")
@@ -37,16 +43,18 @@ public class PlaceAPI {
 	@Autowired
 	private CommentRepository comments;
 
+	@Autowired
+	private PlaceService placeService;
 	/**
 	 * This API route will return all the places
 	 * 
 	 * @return List<Place> list of places
 	 */
 	@GetMapping("/get-all-places")
-	public List<PlaceResponse> getAllPlaces() {
-
+	public List<PlaceResponse> getAllPlaces(@RequestHeader HttpHeaders headers) {
+		
 		List<PlaceResponse> response = new ArrayList<>();
-
+	
 		for (Place place : places.findAll()) {
 
 			User u = users.findById(place.getAddedBy()).get();
@@ -66,7 +74,7 @@ public class PlaceAPI {
 	 * @return instance of comment if comment is added successfully
 	 */
 	@PostMapping("/add-comment")
-	public Comment addComment(@RequestBody Comment comment) {
+	public Comment addComment(@RequestBody Comment comment,@RequestHeader HttpHeaders headers) {
 		Comment c = new Comment();
 		c.setPlaceId(comment.getPlaceId());
 		c.setAddedBy(users.findById(comment.getAddedBy().getUserId()).get());
@@ -106,9 +114,14 @@ public class PlaceAPI {
 	}
 	
 	@GetMapping("/search/{text}")
-	public List<Place> searchPlace(@PathVariable("text") String text) {
-		List<Place> foundPlaces = places.searchPlace(text);
-		return foundPlaces;
+	public List<PlaceResponse> searchPlace(@PathVariable("text") String text) {
+		return placeService.searchPlace(text);
 	}
 	
+	@PostMapping("/delete")
+	public Map<String,Boolean> deletePlace(@RequestBody long placeId,@RequestHeader HttpHeaders headers) {
+		Map<String,Boolean> response = new HashMap<>();
+		response.put("deleted", placeService.deletePlace(placeId));
+		return response;
+	}
 }

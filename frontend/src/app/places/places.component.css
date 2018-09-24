@@ -1,6 +1,6 @@
 .place {
     margin-top: 10px !important;
-    border: none; box-shadow: 1px 0 10px rgba(0,0,0,0.4);
+    border: none; box-shadow: 1px 0 15px 1px rgba(0,0,0,0.6);
 
 }
 .place>.card-header {
@@ -15,7 +15,7 @@
     margin: 5px;
 }
 .comments {
-    background: lightgrey;
+    
     max-height: 500px !important;
     overflow-y: scroll !important;
 }

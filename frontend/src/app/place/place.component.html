@@ -1,0 +1,110 @@
+<div class="card-header">
+    <i class="fa fa-map-pin" aria-hidden="true"></i> {{place.name}} # {{i}}
+    <div class="text-right">
+      ( <span class="given-rating" *ngFor="let i of getArray(place.rating) ">★</span> )
+    </div>
+    <div class="panel panel-default text-right">
+      <strong class="text-secondary" *ngIf="place.addedBy.userId==app.user.userId"> 
+       added by you
+       <button type="button" class="btn danger" (click)="deletePlace(place.placeId,i) ">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+       </button>
+      </strong>
+      <small class="chip"><strong>added on : </strong>{{place.addedOn}}</small>
+      <small class="chip"><strong>added by : </strong> {{place.addedBy.userName}} </small>
+      <small class="chip"><strong>rating : </strong> {{place.rating}} </small>
+    </div>
+  </div>
+  <div class="card-body">
+  
+    <div class="card">
+      <div class="card-header">Decription</div>
+      <div class="card-body" [innerHTML]="place.description"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">Pictures</div>
+      <div class="card-body" style="overflow-y: scroll; overflow-x: hidden;">
+        <img *ngFor="let pic of place.pictures" [src]="getImage(pic.fileName)" class="img"/>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Address</div>
+      <div class="card-body">
+        {{place.address}}
+      </div>
+    </div>
+    <div class="alert">
+        
+      <div class="form-group">
+          Give your rating
+      <form class="rating" #ratingForm="ngForm">
+          
+        <label>
+            <input type="radio" name="stars" value="1" #rating [(ngModel)]="tempRating"/>
+            <span class="icon">★</span>
+        </label>
+          <label>
+            <input type="radio" name="stars" value="2" #rating [(ngModel)]="tempRating"/>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="3" #rating [(ngModel)]="tempRating"/>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>   
+          </label>
+          <label>
+            <input type="radio" name="stars" value="4" #rating [(ngModel)]="tempRating"/>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="5" #rating [(ngModel)]="tempRating"/>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+        </form>
+          <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                  <div class="input-group-text bg-default"><i class="fa fa-comment" aria-hidden="true"></i></div>
+              </div>
+              <textarea
+                class="form-control" placeholder="type your comment here" name="comment{{i}}"
+                #comment required
+              ></textarea>
+              
+              <button type="button" class="btn btn-danger" 
+                (click)="addComment(place.placeId,comment.value,rating.value,i)"
+                [disabled]="comment.invalid"
+              >
+                <i class="fa fa-location-arrow" aria-hidden="true"></i>
+              </button>
+          </div>
+        </div>
+      
+      <div class="comments card">
+        <div class="card comment" *ngFor="let comment of place.comments" #commentField> 
+          <div class="card-header">
+              <small>by: {{comment.addedBy.userName}}</small>
+              <span class="given-rating" *ngFor="let i of getArray(comment.rating) ">★</span>
+              <div class="text-right" *ngIf="comment.addedBy.userId==app.user.userId">
+                <button type="button" class="btn btn-outline-danger" (click)="deleteComment(comment.commentId,i) ">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    {{comment.addedBy.userId}}/{{app.user.userId}}
+                </button>
+              </div>
+          </div>
+          <div class="card-body">
+            <pre>{{ comment.comment }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,23 +1,37 @@
+<nav class="navbar navbar-light bg-light">
+  <ul class="navbar-nav">
+    <li class="input-group mb-2 nav-item">
+      
+      <input type="text" class="form-control" name="search-text" [(ngModel)]="searchText" 
+      (keypress)="callSearch($event)" placeholder="Type here to search">
+      <button type="button" class="btn btn-info" (click)="search()">
+        <i class="fa fa-search"></i>
+      </button>
+      <label>
+        {{places.length}} places
+      </label>
+    </li>
+    <li class="nav-item input-group mb-2">
+    <strong class="text-secondary">Sort By : </strong>
+      <input type="radio" name="filter" value="rating"> rating
+      <input type="radio" name="filter" value="date"> date added
+    </li>
+  </ul>
+</nav>
+
 <div class="container places" >
-    <div class="form-group m-3 ">
-        <div class="input-group mb-2">
-        
-          <input type="text" class="form-control" name="search-text" [(ngModel)]="searchText" 
-          (keydown)="callSearch($event)">
-          <button type="button" class="btn btn-default" (click)="search()">
-            <div class="input-group-text"><i class="fa fa-search"></i></div>
-          </button>
-        </div>
-    </div>
-  <div class="card m-3 place" *ngFor="let place of places; let i=index" s>
+  <div class="card m-3 place" *ngFor="let place of places; let i=index" >
     <div class="card-header">
       <i class="fa fa-map-pin" aria-hidden="true"></i> {{place.name}} # {{i}}
       <div class="text-right">
-        <span class="given-rating" *ngFor="let i of getArray(place.rating) ">★</span>
+        ( <span class="given-rating" *ngFor="let i of getArray(place.rating) ">★</span> )
       </div>
       <div class="panel panel-default text-right">
         <strong class="text-secondary" *ngIf="place.addedBy.userId==app.user.userId"> 
          added by you
+         <button type="button" class="btn danger" (click)="deletePlace(place.placeId,i) ">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+         </button>
         </strong>
         <small class="chip"><strong>added on : </strong>{{place.addedOn}}</small>
         <small class="chip"><strong>added by : </strong> {{place.addedBy.userName}} </small>
@@ -26,7 +40,10 @@
     </div>
     <div class="card-body">
     
-
+      <div class="card">
+        <div class="card-header">Decription</div>
+        <div class="card-body" [innerHTML]="place.description"></div>
+      </div>
       <div class="card">
         <div class="card-header">Pictures</div>
         <div class="card-body" style="overflow-y: scroll; overflow-x: hidden;">
@@ -96,14 +113,13 @@
           </div>
         
         <div class="comments card">
-          <div class="card comment" *ngFor="let comment of place.comments" #commentField> 
+          <div class="comment" *ngFor="let comment of place.comments" #commentField> 
             <div class="card-header">
                 <small>by: {{comment.addedBy.userName}}</small>
                 <span class="given-rating" *ngFor="let i of getArray(comment.rating) ">★</span>
                 <div class="text-right" *ngIf="comment.addedBy.userId==app.user.userId">
-                  <button type="button" class="btn btn-outline-danger" (click)="deleteComment(comment.commentId,i) ">
+                  <button type="button" class="btn btn-warning" (click)="deleteComment(comment.commentId,i) ">
                       <i class="fa fa-trash" aria-hidden="true"></i>
-                      {{comment.addedBy.userId}}/{{app.user.userId}}
                   </button>
                 </div>
             </div>

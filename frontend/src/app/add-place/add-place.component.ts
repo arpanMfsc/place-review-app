@@ -17,6 +17,7 @@ export class AddPlaceComponent implements OnInit {
   constructor(private http: HttpClient,private app: AppService) { }
  
   ngOnInit() {
+    
   }
 
   onFileChanged(event: any) {

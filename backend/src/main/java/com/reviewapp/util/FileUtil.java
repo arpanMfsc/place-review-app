@@ -69,13 +69,13 @@ public class FileUtil {
 	 */
 	public String uploadFile(MultipartFile file) throws IOException {
 		String fileName = new java.util.Date().getTime() + getExtension(file);
-
+		
 		File f = new File(BASE_LOCATION + fileName);
 		f.createNewFile();
 		FileOutputStream fout = new FileOutputStream(f);
 		fout.write(file.getBytes());
 		fout.close();
-
+		
 		return fileName;
 	}
 	

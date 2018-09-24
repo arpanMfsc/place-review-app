@@ -7,7 +7,7 @@
       
       <div class="card m-4 addplace-form">
         <div class="card-header p-0">
-          <div class="bg-white text-info text-center py-2">
+          <div class="bg-info text-white text-center py-2">
             <h3><i class="fa fa-list-alt" aria-hidden="true"></i> Add a new place</h3>
           </div>
         </div>
@@ -30,7 +30,7 @@
             <!-- section for displaying error message-->
             <div class="text-right" *ngIf="name.invalid && name.touched">
               <span class="error-message" >
-              Please enter user name
+              Please enter a name of this place
               </span>
             </div>
           </div>
@@ -43,9 +43,13 @@
                 <textarea
                   class="form-control" placeholder="Enter some description about the place" 
                    name="description" #description="ngModel"
-                  [(ngModel)]="model.description" required
+                  [(ngModel)]="model.description" required id="editor" [hidden]="true"
                 ></textarea>
+                <label style="color: grey; margin-left: 5px">Description about the place</label>
+                <ckeditor
                 
+                [(ngModel)]="model.description" required id="editor" name="ckeditor"
+              ></ckeditor>
             </div>
             <!-- section for displaying error message-->
             <div class="text-right" *ngIf="description.invalid && description.touched">

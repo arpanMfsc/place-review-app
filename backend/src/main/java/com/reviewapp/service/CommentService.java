@@ -1,5 +1,11 @@
 package com.reviewapp.service;
 
-public class CommentService {
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.reviewapp.repositories.CommentRepository;
+
+public class CommentService {
+	@Autowired
+	CommentRepository comments;
+	
 }

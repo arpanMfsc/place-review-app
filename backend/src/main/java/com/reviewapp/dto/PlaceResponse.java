@@ -17,7 +17,7 @@ public class PlaceResponse {
 	private String 				name;
 	private String				description;
 	private String				address;
-	private Date				addedOn;
+	private String				addedOn;
 	private CustomUserFields 	addedBy;
 	private double 				rating;
 	private List<Comment>		comments;
@@ -27,8 +27,8 @@ public class PlaceResponse {
 		placeId 	=	p.getPlaceId();
 		name		=	p.getName();
 		description =	p.getDescription();
-		address		=	p.getDescription();
-		addedOn		=	p.getAddedOn();
+		address		=	p.getAddress();
+		addedOn		=	p.getAddedOn().toLocaleString();
 		addedBy		= 	new CustomUserFields(u.getUserId(),u.getUserName(),u.getDp());
 		setComments(p.getComments());
 		pictures	=	p.getPictures();
@@ -51,7 +51,7 @@ public class PlaceResponse {
 		return address;
 	}
 
-	public Date getAddedOn() {
+	public String getAddedOn() {
 		return addedOn;
 	}
 
@@ -77,6 +77,10 @@ public class PlaceResponse {
 
 	public void setPictures(List<Picture> pictures) {
 		this.pictures = pictures;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+@EnableJpaAuditing
 @Entity
 @Table(name="places")
 public class Place {
@@ -29,7 +31,10 @@ public class Place {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long 			placeId;
 	private String 			name;
+	
+	@Column(columnDefinition="TEXT")
 	private String			description;
+	
 	private String			address;
 	
 	@OneToMany(
@@ -38,6 +43,7 @@ public class Place {
 	        fetch=FetchType.LAZY
 	    )
 	@JoinColumn
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Picture>  	pictures = new ArrayList<>();
 	
 	@OneToMany(

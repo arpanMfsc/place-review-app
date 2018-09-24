@@ -14,7 +14,7 @@ export class PlacesComponent implements OnInit {
   constructor(private http:HttpClient,private app: AppService,private sanitizer:DomSanitizer) { }
   tempRating:any ;
   ngOnInit() {
-    this.http.get(this.app.base_url+"place/get-all-places")
+    this.http.get(this.app.base_url+"place/get-all-places",{headers: {'token':localStorage.getItem('token')}})
         .subscribe( (places:any)=>this.places=places );
   }
   addComment(placeId,comment,rating,index) {
@@ -55,8 +55,17 @@ export class PlacesComponent implements OnInit {
         .subscribe((result:any)=>{this.places=result;} );
   }
   callSearch(event) {
-    if(event.keyCode == 13) {
      this.search();
+  }
+
+  deletePlace(placeId,index) {
+    if(confirm("Are you sure want to delete this place?")) {
+
+      this.http.post(this.app.base_url+'place/delete',placeId)
+      .subscribe((reponse:any)=>{
+        if(reponse.deleted)
+          this.places= this.places.filter(place=>place.placeId != placeId);  
+      });
     }
   }
 }

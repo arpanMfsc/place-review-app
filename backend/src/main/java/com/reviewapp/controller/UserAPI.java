@@ -6,16 +6,16 @@ package com.reviewapp.controller;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,7 +54,7 @@ public class UserAPI {
 	 * @return User object if successfully created
 	 */
 	@PostMapping("/createUser")
-	public User returnCreatedUser(@RequestBody User user) {
+	public User returnCreatedUser(@RequestBody User user,@RequestHeader HttpHeaders headers) {
 		return userService.addUser(user);
 	}
 
@@ -65,8 +65,7 @@ public class UserAPI {
 	 * @return List of User
 	 */
 	@GetMapping("/get-all-users")
-	public List<User> getAllUsers(HttpServletRequest r) {
-		System.out.println(r.getSession());
+	public List<User> getAllUsers() {
 		return userRepo.findAll();
 	}
 
@@ -77,7 +76,7 @@ public class UserAPI {
 	 */
 	@GetMapping("/delete-all")
 	public String deleteAll() {
-		userRepo.deleteAll();
+		userService.deleteAll();
 		return "deleted all users";
 	}
 
@@ -101,7 +100,7 @@ public class UserAPI {
 	 */
 	@PostMapping("/find-by-email")
 	public boolean checkEmailAvailable(@RequestBody String email) {
-		return userService.findByEmail(email)!=null;
+		return userService.findByEmail(email)==null;
 	}
 
 	/**
@@ -112,7 +111,7 @@ public class UserAPI {
 	 */
 	@PostMapping("/find-by-phone")
 	public boolean checkPhoneAvailable(@RequestBody String phone) {
-		return userService.findByPhone(phone)!=null;
+		return userService.findByPhone(phone)==null;
 	}
 
 	/**
@@ -151,12 +150,9 @@ public class UserAPI {
 	 */
 	@PostMapping("/change-profile-pic")
 	public User changaeDp(@RequestParam("file") MultipartFile file,
-							@RequestParam("userId") Long userId) throws Exception {
+							@RequestParam("userId") Long userId,@RequestHeader HttpHeaders headers) throws Exception {
 		
-		User user = userRepo.findById(userId).get();
-		String uploadedFileName = fileService.uploadFile(file);
-		user.setDp(uploadedFileName);
-		return userRepo.save(user);	
+			return userService.changeDp(userId, file);
 	}
 	
 	/***
@@ -165,7 +161,7 @@ public class UserAPI {
 	 * @return List<Place> List of places
 	 */
 	@GetMapping("/get-all-places-added-by/{userId}")
-	public List<Place> getAllPlacesAddedBy(@PathVariable("userId") Long userId) {
+	public List<Place> getAllPlacesAddedBy(@PathVariable("userId") Long userId,@RequestHeader HttpHeaders headers) {
 		return places.getPlacesAddedBy(userId);
 	}
 
