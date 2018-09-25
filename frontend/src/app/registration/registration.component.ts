@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {  Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {AppService} from '../app-service.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -15,7 +16,7 @@ export class RegistrationComponent implements OnInit {
     emailAvailable:any=true;
     phoneAvailable:any=true;
     
-    constructor(private http: HttpClient,private app: AppService) { }
+    constructor(private http: HttpClient,private app: AppService,private router: Router) { }
     ngOnInit() {
 
     }

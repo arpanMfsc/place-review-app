@@ -8,7 +8,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./places.component.css']
 })
 export class PlacesComponent implements OnInit {
-
+  p: number = 1;
   places:any[]=[];
   searchText: string ;
   constructor(private http:HttpClient,private app: AppService,private sanitizer:DomSanitizer) { }
@@ -51,7 +51,11 @@ export class PlacesComponent implements OnInit {
     });
   }
   search() {
+    if(this.searchText!='')
     this.http.get(this.app.base_url+'place/search/'+this.searchText)
+        .subscribe((result:any)=>{this.places=result;} );
+    else
+    this.http.get(this.app.base_url+'place/get-all-places')
         .subscribe((result:any)=>{this.places=result;} );
   }
   callSearch(event) {
@@ -66,6 +70,21 @@ export class PlacesComponent implements OnInit {
         if(reponse.deleted)
           this.places= this.places.filter(place=>place.placeId != placeId);  
       });
+    }
+  }
+
+  filterPlace(f) {
+    switch(f) {
+      case 1:
+        this.places = this.places.sort((a,b)=> b.rating-a.rating );
+        break;
+      case 2:
+
+        this.places = this.places.sort((a,b)=>{
+          let d1 = new Date(a.addedOn),d2= new Date(b.addedOn);
+          return d1.valueOf()-d2.valueOf();
+        });
+        break;
     }
   }
 }

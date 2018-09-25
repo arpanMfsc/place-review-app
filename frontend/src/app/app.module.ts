@@ -22,7 +22,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { PlaceComponent } from './place/place.component';
 import { HomeSearchComponent } from './home-search/home-search.component';
-
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { HttpClientHeader } from './http-client.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { HomeSearchComponent } from './home-search/home-search.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    NgxPaginationModule,
     RouterModule.forRoot([
     {
       path: '',
@@ -104,7 +106,7 @@ import { HomeSearchComponent } from './home-search/home-search.component';
     ]),
     CKEditorModule 
   ],
-  providers: [AppService],
+  providers: [AppService,HttpClientHeader],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

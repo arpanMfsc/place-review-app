@@ -135,11 +135,14 @@
 							</span>
 					</div>
 				</div>
-				<span class="alert alert-success" *ngIf="registered">
-					Successfully registered!
-				</span>
+				
 				<div class="text-right ">
-					
+					<span class="alert alert-success" *ngIf="registered">
+						Successfully registered!
+						<button type="button" class="btn btn-success m-2" (click)="this.router.navigate(['home/login'])">
+						LOGIN
+						</button>
+					</span>
 					
 					<span class="alert alert-danger" *ngIf="registrationError">
 						{{registrationError.message}}

@@ -1,7 +1,8 @@
 package com.reviewapp.service;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class PlaceService {
 	@Autowired
 	CommentRepository comments;
 	
-	List<Place> getAllPlaces() {
+	public List<Place> getAllPlaces() {
 		return places.findAll();
 	}
 	
@@ -39,18 +40,28 @@ public class PlaceService {
 	}
 	
 	public List<PlaceResponse> searchPlace(String text) {
-		List<PlaceResponse> foundPlaces = new LinkedList<>();
+		List<PlaceResponse> foundPlaces = new ArrayList<>();
 		
 		for(Place place : places.searchPlace(text.toLowerCase()) ) {
+			Double rating=places.getAverageRating(place.getPlaceId());
 			foundPlaces.add( 
 			 new PlaceResponse(
 					place,
 					users.findById(place.getAddedBy()).get(),
-					places.getAverageRating(place.getPlaceId())
+					rating==null?0:rating
+					
 			 )
 			);
 		}
-		return foundPlaces;
+		// return sorted data based on rating....
+		return foundPlaces.stream()
+				.sorted((p1,p2)-> (int)p2.getRating()-(int)p1.getRating() )
+				.collect(Collectors.toList());
+	}
+	
+	public Place saveInDraft(Place place) {
+		
+		return null;
 	}
 	
 }

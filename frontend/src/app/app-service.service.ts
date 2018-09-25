@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClientHeader} from './http-client.service';
 import { $ } from 'protractor';
 import { getLocaleTimeFormat } from '@angular/common';
 @Injectable({
@@ -15,7 +15,7 @@ export class AppService {
   public resource_base_location = "http://localhost:80/";
   public tempDp: string ;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClientHeader) { 
   }
   authenticate() {
     this.authenticated=true;
@@ -24,8 +24,22 @@ export class AppService {
     console.log(localStorage.getItem("user"));
   }
   isAuthenticated() {
+   
     this.user = JSON.parse(localStorage.getItem("user"));
     return localStorage.getItem("user")!=null;
+  }
+
+  authCheck() {
+    // this.http.post(this.base_url+'api/is-authenticated',{})
+    //     .subscribe((user:any)=>{
+    //       if(user!=null){
+    //         this.user=user;
+    //         this.authenticate();
+    //       }else {
+    //         this.authenticated=false;
+    //         localStorage.clear();
+    //       }
+    //     });
   }
   logout() {
     this.http.post(this.base_url+"api/logout",{token: localStorage.getItem("token")});

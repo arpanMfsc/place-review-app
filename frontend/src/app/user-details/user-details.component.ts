@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../app-service.service';
+import { HttpClientHeader } from '../http-client.service';
+
 @Component({
   selector: 'user-details',
   templateUrl: './user-details.component.html',
@@ -7,13 +9,24 @@ import {AppService} from '../app-service.service';
 })
 export class UserDetailsComponent implements OnInit {
   editable:any=false;
-  model: any = {userId: this.app.user.userId,userName: "",email: "",phone: "",profession: ""}
-  constructor(private app: AppService) { }
+  model: any ;
+  error:any= '';
+  constructor(private app: AppService,private http: HttpClientHeader) { }
 
   ngOnInit() {
-    this.model.userName = this.app.user.userName;
-    this.model.email = this.app.user.email;
-    this.model.phone = this.app.user.phone;
+    this.model=this.app.user;
   }
 
+  modifyUser() {
+    console.log(this.model);
+   
+    this.http.post(this.app.base_url+'api/edit-user',this.model
+                  )
+    .subscribe((res:any)=>{ 
+      if(res.error)
+        alert(res.error)
+      if(res.success)
+        alert(res.success);
+    });
+  }
 }

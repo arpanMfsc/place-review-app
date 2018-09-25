@@ -15,7 +15,9 @@
     margin: 5px;
 }
 .comments {
-    
+    border: 1px solid lightseagreen;
+    border-radius: 5px;
+    padding: 5px;
     max-height: 500px !important;
     overflow-y: scroll !important;
 }

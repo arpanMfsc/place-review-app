@@ -55,7 +55,7 @@ public class PlaceAPI {
 		
 		List<PlaceResponse> response = new ArrayList<>();
 	
-		for (Place place : places.findAll()) {
+		for (Place place : placeService.getAllPlaces()) {
 
 			User u = users.findById(place.getAddedBy()).get();
 			System.out.println(place.getComments());
@@ -100,24 +100,23 @@ public class PlaceAPI {
 		return "Deleted";
 
 	}
-
-	/**
-	 * This API route will return average rating for a place
-	 * 
-	 * @param Long id
-	 * @return average rating
-	 */
-	@GetMapping("/get-rating/{id}")
-	public double getRating(@PathVariable("id") Long id) {
-
-		return places.getAverageRating(id);
-	}
 	
+	/**
+	 * This API route will search a place based on given search text
+	 * @param Sring text
+	 * @return found List<PlaceResponse>
+	 */
 	@GetMapping("/search/{text}")
 	public List<PlaceResponse> searchPlace(@PathVariable("text") String text) {
 		return placeService.searchPlace(text);
 	}
 	
+	/**
+	 * This method deletes a place
+	 * @param lon placeId
+	 * @param HttpHeaders headers
+	 * @return Map<String,Boolean>
+	 */
 	@PostMapping("/delete")
 	public Map<String,Boolean> deletePlace(@RequestBody long placeId,@RequestHeader HttpHeaders headers) {
 		Map<String,Boolean> response = new HashMap<>();

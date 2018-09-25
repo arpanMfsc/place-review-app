@@ -1,26 +1,33 @@
 <nav class="navbar navbar-light bg-light">
   <ul class="navbar-nav">
-    <li class="input-group mb-2 nav-item">
+    <li class="mb-2 nav-item input-group">
       
       <input type="text" class="form-control" name="search-text" [(ngModel)]="searchText" 
-      (keypress)="callSearch($event)" placeholder="Type here to search">
+      (keyup)="callSearch($event)" placeholder="Type here to search">
       <button type="button" class="btn btn-info" (click)="search()">
         <i class="fa fa-search"></i>
       </button>
-      <label>
-        {{places.length}} places
-      </label>
     </li>
     <li class="nav-item input-group mb-2">
-    <strong class="text-secondary">Sort By : </strong>
-      <input type="radio" name="filter" value="rating"> rating
-      <input type="radio" name="filter" value="date"> date added
+      <label class="form-check-label">SORY BY </label>
+      <div class="form-check-inline chip text-white">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="filter" (click)="filterPlace(1)">rating
+          </label>
+      </div>
+      <div class="form-check-inline chip text-white">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="filter" (click)="filterPlace(2)">recently added
+          </label>
+      </div>
     </li>
   </ul>
+  <span>{{places.length}} places</span>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </nav>
 
 <div class="container places" >
-  <div class="card m-3 place" *ngFor="let place of places; let i=index" >
+  <div class="card m-3 place" *ngFor="let place of places| paginate: { itemsPerPage: 2, currentPage: p }; let i=index" >
     <div class="card-header">
       <i class="fa fa-map-pin" aria-hidden="true"></i> {{place.name}} # {{i}}
       <div class="text-right">

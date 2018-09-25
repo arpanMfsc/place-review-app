@@ -5,9 +5,13 @@
 package com.reviewapp.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -137,8 +141,8 @@ public class UserAPI {
 	 * @return an instance of User if authenticated otherwise false
 	 */
 	@PostMapping("/is-authenticated")
-	public User isAuthenticated(@RequestParam("token") String token) {
-		return auth.getUser(token);
+	public User isAuthenticated(@RequestHeader HttpHeaders headers) {
+		return auth.getUser(headers.get("token").get(0));
 	}
 	
 	/***
@@ -163,6 +167,22 @@ public class UserAPI {
 	@GetMapping("/get-all-places-added-by/{userId}")
 	public List<Place> getAllPlacesAddedBy(@PathVariable("userId") Long userId,@RequestHeader HttpHeaders headers) {
 		return places.getPlacesAddedBy(userId);
+	}
+	
+	@PostMapping("/edit-user")
+	public Map<String,String> editUser(@RequestBody User user,@RequestHeader("accept") HttpHeaders headers) {
+		System.out.println(headers.get("token"));
+		Map<String,String> response = new HashMap<>();
+		
+		try {
+			if(!auth.isAuthenticated( headers.get("token").get(0)) )
+				throw new Exception("session expired");
+			userService.editUser(user.getUserId(),user.getUserName(),user.getEmail(),user.getPhone());
+			response.put("success", "user changed successfully");
+		}catch(Exception e) {
+			response.put("error", e.getMessage());
+		}
+		return response;
 	}
 
 }
