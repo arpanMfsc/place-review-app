@@ -19,6 +19,7 @@ export class PlacesComponent implements OnInit {
   }
   addComment(placeId,comment,rating,index) {
     console.log(placeId,comment,rating,this.tempRating);
+    if(comment.trim()!="")
     this.http.post(this.app.base_url+'place/add-comment',
                     { "placeId": placeId,
                      "comment": comment,
@@ -26,8 +27,9 @@ export class PlacesComponent implements OnInit {
                      "rating": this.tempRating
                     } 
                   ).subscribe((comment: any)=>{
-                    this.places[index].comments.push(comment)
+                    this.places[index+this.p].comments.push(comment)
                   });
+    else alert('place add some text');
   }
   sanitize(url:string){
     return this.sanitizer.bypassSecurityTrustUrl(url);
@@ -80,11 +82,11 @@ export class PlacesComponent implements OnInit {
         break;
       case 2:
 
-        this.places = this.places.sort((a,b)=>{
-          let d1 = new Date(a.addedOn),d2= new Date(b.addedOn);
-          return d1.valueOf()-d2.valueOf();
-        });
+        this.places = this.places.reverse();
         break;
     }
+  }
+  scroll() {
+    window.scrollTo(0,0);
   }
 }

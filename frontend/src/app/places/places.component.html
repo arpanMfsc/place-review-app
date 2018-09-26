@@ -1,32 +1,32 @@
-<nav class="navbar navbar-light bg-light">
-  <ul class="navbar-nav">
-    <li class="mb-2 nav-item input-group">
-      
-      <input type="text" class="form-control" name="search-text" [(ngModel)]="searchText" 
+<nav class="navbar navbar-light bg-light container" style="border-left: 2px solid crimson; padding: 20px">
+  <div class="input-group">
+      <input type="search" class="form-control search" name="search-text" [(ngModel)]="searchText" 
       (keyup)="callSearch($event)" placeholder="Type here to search">
       <button type="button" class="btn btn-info" (click)="search()">
         <i class="fa fa-search"></i>
       </button>
+  </div>
+  <ul class="navbar-nav m-2">
+    <li class="nav-item input-group">
+        <label class="chip bg-warning text-white">SORY BY </label>
+        <div class="form-check-inline chip text-white">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="filter" (click)="filterPlace(1)">rating
+            </label>
+        </div>
+        <div class="form-check-inline chip text-white">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="filter" (click)="filterPlace(2)">recently added
+            </label>
+        </div>
+    
     </li>
-    <li class="nav-item input-group mb-2">
-      <label class="form-check-label">SORY BY </label>
-      <div class="form-check-inline chip text-white">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="filter" (click)="filterPlace(1)">rating
-          </label>
-      </div>
-      <div class="form-check-inline chip text-white">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="filter" (click)="filterPlace(2)">recently added
-          </label>
-      </div>
-    </li>
+    
   </ul>
-  <span>{{places.length}} places</span>
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  <span class="chip text-white bg-primary">{{places.length}} places found</span>
 </nav>
 
-<div class="container places" >
+<div class="container places">
   <div class="card m-3 place" *ngFor="let place of places| paginate: { itemsPerPage: 2, currentPage: p }; let i=index" >
     <div class="card-header">
       <i class="fa fa-map-pin" aria-hidden="true"></i> {{place.name}} # {{i}}
@@ -48,18 +48,18 @@
     <div class="card-body">
     
       <div class="card">
-        <div class="card-header">Decription</div>
+        <div class="card-header section-header">Decription</div>
         <div class="card-body" [innerHTML]="place.description"></div>
       </div>
       <div class="card">
-        <div class="card-header">Pictures</div>
+        <div class="card-header section-header">Pictures</div>
         <div class="card-body" style="overflow-y: scroll; overflow-x: hidden;">
           <img *ngFor="let pic of place.pictures" [src]="getImage(pic.fileName)" class="img"/>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-header">Address</div>
+        <div class="card-header section-header">Address</div>
         <div class="card-body">
           {{place.address}}
         </div>
@@ -67,7 +67,8 @@
       <div class="alert">
           
         <div class="form-group">
-            Give your rating
+        <label>give your rating</label>
+        <br />
         <form class="rating" #ratingForm="ngForm">
             
           <label>
@@ -122,16 +123,20 @@
         <div class="comments card">
           <div class="comment" *ngFor="let comment of place.comments" #commentField> 
             <div class="card-header">
-                <small>by: {{comment.addedBy.userName}}</small>
+                <span class="chip">
+                  <img [src]="getImage(comment.addedBy.dp)">
+                  <small>by: {{comment.addedBy.userName}}</small>
+                </span>
+                <span class="chip">{{ comment.addedOn}}</span>
                 <span class="given-rating" *ngFor="let i of getArray(comment.rating) ">★</span>
-                <div class="text-right" *ngIf="comment.addedBy.userId==app.user.userId">
+                <span class="text-right" *ngIf="comment.addedBy.userId==app.user.userId">
                   <button type="button" class="btn btn-warning" (click)="deleteComment(comment.commentId,i) ">
                       <i class="fa fa-trash" aria-hidden="true"></i>
                   </button>
-                </div>
+                </span>
             </div>
             <div class="card-body">
-              <pre>{{ comment.comment }}</pre>
+              {{ comment.comment }}
             </div>
           </div>
         </div>
@@ -139,3 +144,6 @@
     </div>
   </div>
 </div>
+<footer class="text-center">
+    <pagination-controls (pageChange)="p = $event; " (click)="scroll()"></pagination-controls>
+</footer>

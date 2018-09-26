@@ -1,5 +1,6 @@
 package com.reviewapp.service;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,10 +26,19 @@ public class PlaceService {
 	@Autowired
 	CommentRepository comments;
 	
+	/**
+	 * This method returns all the places
+	 * @return List<Place>
+	 */
 	public List<Place> getAllPlaces() {
 		return places.findAll();
 	}
 	
+	/**
+	 * This method deletes a place by placeId
+	 * @param long placeId
+	 * @return true if deleted otherwise false
+	 */
 	public boolean deletePlace (long placeId) {
 		try {
 			places.deleteById(placeId);
@@ -39,6 +49,11 @@ public class PlaceService {
 		return true;
 	}
 	
+	/**
+	 * This method searches a place by search text and returns places sorted by rating
+	 * @param text
+	 * @return List<PlaceResponse>
+	 */
 	public List<PlaceResponse> searchPlace(String text) {
 		List<PlaceResponse> foundPlaces = new ArrayList<>();
 		
@@ -64,4 +79,7 @@ public class PlaceService {
 		return null;
 	}
 	
+	public void digest() {
+		MessageDigest m;
+	}
 }

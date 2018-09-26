@@ -17,4 +17,5 @@ public class Draft {
 	
 	private String name,description,address;
 	
+	
 }

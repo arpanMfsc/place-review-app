@@ -2,10 +2,12 @@
     /* border-bottom: 1px solid lightseagreen; */
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     background: #fff;
+    background: #333;
 }
 .profile-navbar .active{
     border:1px solid lightseagreen;
     border-radius: 4px;
+    background: lightseagreen;
 }
 .search-container {
     position: relative;

@@ -14,6 +14,7 @@ export class AppService {
   public base_url="http://localhost:8080/";
   public resource_base_location = "http://localhost:80/";
   public tempDp: string ;
+  public searchText: string;
 
   constructor(private http: HttpClientHeader) { 
   }

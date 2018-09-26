@@ -117,7 +117,7 @@ body {
   position: relative;
   height: 50px;
   line-height: 50px;
-  font-size: 50px;
+  font-size: 30px;
 }
 
 .rating label {
@@ -187,7 +187,8 @@ body {
   }
   .comment .card-header {
     margin-top: -20px ;
-    padding: 18px !important;
+    padding: 8px !important;
+
     background: #333 !important;
     color: #fff !important;
   }
@@ -195,10 +196,10 @@ body {
   content: " ";
   width: 0; 
   height: 0; 
-  border-top: 1px solid transparent;
+  border-top: 0 solid transparent;
   border-bottom: 25px solid transparent;
   position: absolute;
-  top: 0; left: -23px;
+  top: -20px; left: -23px;
   border-right: 25px solid #333;
 }
 
@@ -206,4 +207,8 @@ body {
   color: goldenrod;
   font-size: 18px;
   text-shadow: 1px 0 3px black;
+}
+
+.search {
+ padding: 20px;
 }

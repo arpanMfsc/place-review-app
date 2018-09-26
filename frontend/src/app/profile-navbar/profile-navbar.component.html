@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg navbar-light profile-navbar fixed-top nav-tabs">
+<nav class="navbar navbar-expand-lg navbar-dark profile-navbar fixed-top nav-tabs">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -70,8 +70,10 @@
         <li>
         <!-- search box -->
           <form class="form-inline m-2 ml-2 my-2 my-lg-0 search-container">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+            [(ngModel)]="app.searchText" name="searchText">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit"
+            (click)="this.router.navigate(['profile/places'])">Search</button>
             
           </form>
         </li>

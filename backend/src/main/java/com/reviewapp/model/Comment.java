@@ -1,8 +1,9 @@
 package com.reviewapp.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,8 @@ public class Comment {
 	private double rating;
 	
 	private String comment;
+	
+	private String addedOn = new Date().toLocaleString();
 	
 	@OneToOne
 	private User addedBy;
@@ -78,10 +81,19 @@ public class Comment {
 		this.addedBy = addedBy;
 	}
 	
+	public String getAddedOn() {
+		return addedOn;
+	}
+
+	public void setAddedOn(String addedOn) {
+		this.addedOn = addedOn;
+	}
+
 	@Override
 	public String toString() {
 		return "Comment [commentId=" + commentId + ", placeId=" + placeId + ", rating=" + rating + ", comment="
 				+ comment + ", addedBy=" + addedBy + ", pictures=" + pictures + "]";
 	}
+	
 	
 }
