@@ -24,8 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
-	private @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) 
-	Long userId;
+	private @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) Long userId;
 
 	@Column(nullable = false)
 	private String userName;
@@ -51,7 +50,7 @@ public class User {
 	private String profession;
 
 	private boolean activated = false;
-	
+
 	public User() {
 	}
 

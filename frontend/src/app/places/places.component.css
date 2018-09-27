@@ -1,6 +1,6 @@
 .place {
     margin-top: 10px !important;
-    border: none; box-shadow: 1px 0 15px 1px rgba(0,0,0,0.6);
+    border: none; box-shadow: 0 0 12px rgba(0,0,0,0.2);
 }
 .place>.card-header {
     background: darkslateblue;
@@ -9,6 +9,31 @@
 .section-header {
     background: #2C3E50   ;
     color: #fff;
+}
+.section-header:hover{
+    background: crimson !important;
+   
+}
+.section-header:hover:before{
+    content: " ";
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    top: -10px; left: 9px;
+    border-bottom: 10px solid #crimson;
+   
+}
+.section-header:before {
+    content: " ";
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    top: -10px; left: 9px;
+    border-bottom: 10px solid #2C3E50;
 }
 .img {
     box-shadow: 1px 0 10px rgba(0,0,0,0.6);

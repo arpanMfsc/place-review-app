@@ -1,3 +1,6 @@
-<p>
-  my-places works!
-</p>
+<div class="container">
+  <div *ngFor="let place of places">
+    <div class="card-header">{{place.name}}</div>
+    <div class="card-body" [innerHTML]="place.description"></div>
+  </div>
+</div>

@@ -41,16 +41,21 @@ import com.reviewapp.service.UserService;
 
 public class UserAPI {
 
-	@Autowired private UserRepository userRepo;
+	@Autowired
+	private UserRepository userRepo;
 
-	@Autowired private AuthService auth;
+	@Autowired
+	private AuthService auth;
 
-	@Autowired PlaceRepository places;
-	
-	@Autowired private FileService fileService;
-	
-	@Autowired private UserService userService;
-	
+	@Autowired
+	PlaceRepository places;
+
+	@Autowired
+	private FileService fileService;
+
+	@Autowired
+	private UserService userService;
+
 	/**
 	 * A rest API route for creating user...
 	 * 
@@ -58,7 +63,7 @@ public class UserAPI {
 	 * @return User object if successfully created
 	 */
 	@PostMapping("/createUser")
-	public User returnCreatedUser(@RequestBody User user,@RequestHeader HttpHeaders headers) {
+	public User returnCreatedUser(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 		return userService.addUser(user);
 	}
 
@@ -104,7 +109,7 @@ public class UserAPI {
 	 */
 	@PostMapping("/find-by-email")
 	public boolean checkEmailAvailable(@RequestBody String email) {
-		return userService.findByEmail(email)==null;
+		return userService.findByEmail(email) == null;
 	}
 
 	/**
@@ -115,7 +120,7 @@ public class UserAPI {
 	 */
 	@PostMapping("/find-by-phone")
 	public boolean checkPhoneAvailable(@RequestBody String phone) {
-		return userService.findByPhone(phone)==null;
+		return userService.findByPhone(phone) == null;
 	}
 
 	/**
@@ -126,7 +131,8 @@ public class UserAPI {
 	 * @return an instance of User if successfully logged in otherwise null
 	 */
 	@PostMapping("/login")
-	public CustomUserFields login(HttpServletRequest request,HttpServletResponse response, @RequestBody LoginRequest credentials) {
+	public CustomUserFields login(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody LoginRequest credentials) {
 		return auth.authenticate(request, credentials.userId, credentials.password);
 	}
 
@@ -134,6 +140,7 @@ public class UserAPI {
 	public void logout(@RequestParam("token") String token) {
 		auth.logout(token);
 	}
+
 	/**
 	 * This API route is used to check if the user is authenticated or not
 	 * 
@@ -144,42 +151,44 @@ public class UserAPI {
 	public User isAuthenticated(@RequestHeader HttpHeaders headers) {
 		return auth.getUser(headers.get("token").get(0));
 	}
-	
+
 	/***
 	 * This API will change the user dp
+	 * 
 	 * @param MultipartFile file
-	 * @param Long userId
+	 * @param Long          userId
 	 * @return String which is the auto generated name of the uploaded file
 	 * @throws IOException
 	 */
 	@PostMapping("/change-profile-pic")
-	public User changaeDp(@RequestParam("file") MultipartFile file,
-							@RequestParam("userId") Long userId,@RequestHeader HttpHeaders headers) throws Exception {
-		
-			return userService.changeDp(userId, file);
+	public User changaeDp(@RequestParam("file") MultipartFile file, @RequestParam("userId") Long userId,
+			@RequestHeader HttpHeaders headers) throws Exception {
+
+		return userService.changeDp(userId, file);
 	}
-	
+
 	/***
 	 * This API will return add the places added by a user
+	 * 
 	 * @param Long LongserId
 	 * @return List<Place> List of places
 	 */
 	@GetMapping("/get-all-places-added-by/{userId}")
-	public List<Place> getAllPlacesAddedBy(@PathVariable("userId") Long userId,@RequestHeader HttpHeaders headers) {
+	public List<Place> getAllPlacesAddedBy(@PathVariable("userId") Long userId, @RequestHeader HttpHeaders headers) {
 		return places.getPlacesAddedBy(userId);
 	}
-	
+
 	@PostMapping("/edit-user")
-	public Map<String,String> editUser(@RequestBody User user,@RequestHeader("accept") HttpHeaders headers) {
+	public Map<String, String> editUser(@RequestBody User user, @RequestHeader("accept") HttpHeaders headers) {
 		System.out.println(headers.get("token"));
-		Map<String,String> response = new HashMap<>();
-		
+		Map<String, String> response = new HashMap<>();
+
 		try {
-			if(!auth.isAuthenticated( headers.get("token").get(0)) )
+			if (!auth.isAuthenticated(headers.get("token").get(0)))
 				throw new Exception("session expired");
-			userService.editUser(user.getUserId(),user.getUserName(),user.getEmail(),user.getPhone());
+			userService.editUser(user.getUserId(), user.getUserName(), user.getEmail(), user.getPhone());
 			response.put("success", "user changed successfully");
-		}catch(Exception e) {
+		} catch (Exception e) {
 			response.put("error", e.getMessage());
 		}
 		return response;

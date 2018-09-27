@@ -14,8 +14,15 @@ export class PlacesComponent implements OnInit {
   constructor(private http:HttpClient,private app: AppService,private sanitizer:DomSanitizer) { }
   tempRating:any ;
   ngOnInit() {
-    this.http.get(this.app.base_url+"place/get-all-places",{headers: {'token':localStorage.getItem('token')}})
+    if(this.app.searchPlace){
+      this.searchText=this.app.searchText;
+      this.search();
+      this.app.searchPlace=false;
+    }
+    else {
+      this.http.get(this.app.base_url+"place/get-all-places",{headers: {'token':localStorage.getItem('token')}})
         .subscribe( (places:any)=>this.places=places );
+    }
   }
   addComment(placeId,comment,rating,index) {
     console.log(placeId,comment,rating,this.tempRating);
@@ -27,7 +34,7 @@ export class PlacesComponent implements OnInit {
                      "rating": this.tempRating
                     } 
                   ).subscribe((comment: any)=>{
-                    this.places[index+this.p].comments.push(comment)
+                    this.places[index+(this.p-1)*2].comments.push(comment)
                   });
     else alert('place add some text');
   }
@@ -48,7 +55,7 @@ export class PlacesComponent implements OnInit {
     if(confirm("Do you want to delete this comment ?"))
       this.http.post(this.app.base_url+"comment/delete-comment",{'commentId':commentId})
     .subscribe((data)=>{ console.log(data);
-      this.places[index].comments = this.places[index]
+      this.places[index+(this.p-1)*2].comments = this.places[index+ (this.p-1)*2]
                         .comments.filter(comment=>comment.commentId != commentId)
     });
   }

@@ -4,7 +4,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">placeReview</a>
+      <a class="navbar-brand" href="#"><i class="fa fa-podcast" aria-hidden="true" style="font-size: 20px"></i></a>
       <ul class="navbar-nav mt-2 mt-lg-0">
         <!-- <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link" routerLink='/home' >Home </a>
@@ -73,7 +73,7 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
             [(ngModel)]="app.searchText" name="searchText">
             <button class="btn btn-outline-info my-2 my-sm-0" type="submit"
-            (click)="this.router.navigate(['profile/places'])">Search</button>
+            (click)="this.app.triggerSearch()">Search</button>
             
           </form>
         </li>

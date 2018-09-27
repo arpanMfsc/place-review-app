@@ -25,7 +25,7 @@ public class Comment {
 	
 	private String comment;
 	
-	private String addedOn = new Date().toLocaleString();
+	private Date addedOn = new Date();
 	
 	@OneToOne
 	private User addedBy;
@@ -81,11 +81,11 @@ public class Comment {
 		this.addedBy = addedBy;
 	}
 	
-	public String getAddedOn() {
+	public Date getAddedOn() {
 		return addedOn;
 	}
 
-	public void setAddedOn(String addedOn) {
+	public void setAddedOn(Date addedOn) {
 		this.addedOn = addedOn;
 	}
 

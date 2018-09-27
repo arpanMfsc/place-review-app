@@ -54,11 +54,10 @@ public class PlaceAPI {
 	public List<PlaceResponse> getAllPlaces(@RequestHeader HttpHeaders headers) {
 		
 		List<PlaceResponse> response = new ArrayList<>();
-	
+		
 		for (Place place : placeService.getAllPlaces()) {
 
 			User u = users.findById(place.getAddedBy()).get();
-			System.out.println(place.getComments());
 			Double avg = places.getAverageRating(place.getPlaceId());
 			int avgRating = (int) Math.ceil(avg==null? 0 : avg);
 			response.add(new PlaceResponse(place, u, avgRating));
@@ -122,5 +121,10 @@ public class PlaceAPI {
 		Map<String,Boolean> response = new HashMap<>();
 		response.put("deleted", placeService.deletePlace(placeId));
 		return response;
+	}
+	
+	@PostMapping("/place-added-by")
+	public List<PlaceResponse> getPlacesAddedBy(@RequestBody long placeId, @RequestHeader HttpHeaders headers) {
+		return placeService.getPlacesAddedBy(placeId);
 	}
 }

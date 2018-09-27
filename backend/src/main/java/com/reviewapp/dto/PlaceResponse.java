@@ -22,6 +22,7 @@ public class PlaceResponse {
 	private double 				rating;
 	private List<Comment>		comments;
 	private List<Picture>		pictures;
+	
 	public PlaceResponse(Place p,User u,double rating) {
 		
 		placeId 	=	p.getPlaceId();
@@ -82,6 +83,5 @@ public class PlaceResponse {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
+
 }

@@ -13,24 +13,25 @@ import com.reviewapp.model.User;
 
 public class CustomUserFields {
 
-	private Long 	userId;
-	private String 	userName, dp;
-	private String 	token;
-	private String 	email;
-	private String 	phone;
-	private String 	profession;
-	private	Date 	addedOn;
-	private String 	type;
+	private Long userId;
+	private String userName, dp;
+	private String token;
+	private String email;
+	private String phone;
+	private String profession;
+	private Date addedOn;
+	private String type;
+
 	public CustomUserFields(User user) {
-		this.userId 	= user.getUserId();
-		this.userName 	= user.getUserName();
-		this.dp 		= user.getDp();
-		this.email 		= user.getEmail();
-		this.phone 		= user.getPhone();
+		this.userId = user.getUserId();
+		this.userName = user.getUserName();
+		this.dp = user.getDp();
+		this.email = user.getEmail();
+		this.phone = user.getPhone();
 		this.profession = user.getProfession();
-		this.addedOn	= user.getAddedOn();
-		this.type		= user.getType();
-		System.out.println("Phone="+phone+",email="+email);
+		this.addedOn = user.getAddedOn();
+		this.type = user.getType();
+		System.out.println("Phone=" + phone + ",email=" + email);
 	}
 
 	public CustomUserFields(Long userId, String userName, String dp) {
@@ -103,7 +104,6 @@ public class CustomUserFields {
 		this.addedOn = addedOn;
 	}
 
-	
 	public String getType() {
 		return type;
 	}
@@ -117,6 +117,5 @@ public class CustomUserFields {
 		return "CustomUserFields [userId=" + userId + ", userName=" + userName + ", dp=" + dp + ", token=" + token
 				+ ", email=" + email + ", phone=" + phone + ", profession=" + profession + ", addedOn=" + addedOn + "]";
 	}
-	
 
 }

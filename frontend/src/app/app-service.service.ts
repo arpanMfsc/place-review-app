@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClientHeader} from './http-client.service';
 import { $ } from 'protractor';
 import { getLocaleTimeFormat } from '@angular/common';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,8 +16,9 @@ export class AppService {
   public resource_base_location = "http://localhost:80/";
   public tempDp: string ;
   public searchText: string;
+  public searchPlace: boolean = false;
 
-  constructor(private http: HttpClientHeader) { 
+  constructor(private http: HttpClientHeader,private router:Router) { 
   }
   authenticate() {
     this.authenticated=true;
@@ -77,6 +79,10 @@ export class AppService {
     this.http.post(url, formData)
         .subscribe((modifiedUser:any) => { this.user= modifiedUser;
         localStorage.setItem("user",JSON.stringify(modifiedUser)) } );
+  }
+  triggerSearch() {
+    this.searchPlace=true;
+    this.router.navigate(['profile/places'])
   }
 
 }

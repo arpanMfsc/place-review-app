@@ -34,6 +34,22 @@ public class PlaceService {
 		return places.findAll();
 	}
 	
+	public List<PlaceResponse> getPlacesAddedBy(long placeId) {
+		List<PlaceResponse> myPlaces = new ArrayList<>();
+
+		for(Place place : places.getPlacesAddedBy(placeId) ) {
+			Double rating=places.getAverageRating(place.getPlaceId());
+			myPlaces.add( 
+			 new PlaceResponse(
+					place,
+					users.findById(place.getAddedBy()).get(),
+					rating==null?0:rating
+					
+			 )
+			);
+		}
+		return myPlaces;
+	}
 	/**
 	 * This method deletes a place by placeId
 	 * @param long placeId
@@ -80,6 +96,6 @@ public class PlaceService {
 	}
 	
 	public void digest() {
-		MessageDigest m;
+		
 	}
 }

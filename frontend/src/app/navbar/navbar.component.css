@@ -2,13 +2,15 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     /* background: #fff !important;
     color: #333 !important; */
-    background:#fff;
-    
+    /* background:#fff; */
    
 }
 .custom-nav .active {
     /* border: 1px solid lightblue; */
-    border: 1px solid lightseagreen;
+    /* border: 1px solid lightseagreen;
     border-radius: 6px;
-    color: lightseagreen;
+    color: lightseagreen; */
+    background: lightseagreen;
+    color: #fff;
+    border-radius: 6px;
 }
